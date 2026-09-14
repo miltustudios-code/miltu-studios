@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Resume-to-Interview OS — Portfolio Demo</title>
+<meta name="description" content="A job search operating system that turns free resume-building tools into a repeatable workflow from job description to interview.">
+<style>
+:root{
+  --bg:#f5f7fb; --panel:#fff; --ink:#101828; --muted:#667085; --line:#e4e7ec;
+  --accent:#5b5bd6; --accent-soft:#efefff; --good:#067647; --goodbg:#ecfdf3;
+  --warn:#b54708; --warnbg:#fff6ed; --danger:#b42318; --shadow:0 12px 32px rgba(16,24,40,.08);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5}
+button,input,textarea,select{font:inherit}
+a{color:inherit}
+.shell{max-width:1220px;margin:0 auto;padding:0 22px}
+.top{display:flex;justify-content:space-between;align-items:center;padding:20px 0}
+.brand{font-weight:850;letter-spacing:-.3px}
+.pill{padding:6px 10px;border-radius:999px;background:var(--accent-soft);color:var(--accent);font-size:12px;font-weight:800}
+.hero{display:grid;grid-template-columns:1.15fr .85fr;gap:28px;align-items:center;padding:56px 0 38px}
+.kicker{font-size:13px;font-weight:850;letter-spacing:1px;text-transform:uppercase;color:var(--accent)}
+h1{font-size:clamp(44px,6vw,72px);line-height:1.02;letter-spacing:-2.7px;margin:10px 0 18px}
+.sub{font-size:19px;color:var(--muted);max-width:760px}
+.heroPanel{background:linear-gradient(145deg,#14152c,#25264c);color:white;border-radius:26px;padding:24px;box-shadow:var(--shadow)}
+.heroPanel h3{margin:0 0 12px;font-size:22px}
+.flow{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.flow div{padding:13px;border-radius:13px;background:rgba(255,255,255,.08)}
+.flow small{color:#c9cad7}
+.layout{display:grid;grid-template-columns:235px 1fr;gap:22px;padding-bottom:70px}
+.nav{position:sticky;top:18px;align-self:start;background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:12px;box-shadow:0 4px 16px rgba(16,24,40,.03)}
+.nav a{display:block;text-decoration:none;padding:9px 11px;border-radius:9px;color:var(--muted);font-size:13px}
+.nav a:hover{background:var(--accent-soft);color:var(--accent)}
+.navNote{font-size:11px;color:var(--muted);background:#f9fafb;padding:10px;border-radius:10px;margin-top:10px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:24px;margin-bottom:18px;box-shadow:0 3px 15px rgba(16,24,40,.03)}
+.card h2{margin:0 0 7px;font-size:26px;letter-spacing:-.5px}
+.card .desc{margin:0 0 18px;color:var(--muted)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+label{display:block;font-size:12px;font-weight:800;color:#344054;margin-bottom:6px}
+input,textarea,select{width:100%;border:1px solid #d0d5dd;background:#fff;border-radius:11px;padding:11px 12px;outline:none}
+input:focus,textarea:focus,select:focus{border-color:#aaa8ff;box-shadow:0 0 0 3px #f0efff}
+textarea{min-height:150px;resize:vertical}
+.btn{border:0;border-radius:11px;background:var(--accent);color:#fff;font-weight:800;padding:11px 14px;cursor:pointer}
+.btn.dark{background:#111827}.btn.light{background:var(--accent-soft);color:var(--accent)}.btn.sm{padding:8px 10px;font-size:12px}
+.rowActions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.statgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.stat{border:1px solid var(--line);border-radius:14px;padding:16px}
+.stat .n{font-size:30px;font-weight:900}.stat small{color:var(--muted)}
+.list{border:1px solid var(--line);border-radius:13px;overflow:hidden}
+.item{display:grid;grid-template-columns:1fr auto;gap:14px;padding:13px 14px;border-bottom:1px solid var(--line)}
+.item:last-child{border-bottom:0}.item small{color:var(--muted)}
+.tag{display:inline-block;border-radius:999px;padding:5px 8px;background:#f2f4f7;color:#475467;font-size:11px;font-weight:800;margin:2px}
+.good{background:var(--goodbg);color:var(--good)}.warn{background:var(--warnbg);color:var(--warn)}
+.output{margin-top:14px;border:1px dashed #cfd4dc;background:#fafafa;border-radius:13px;padding:14px;white-space:pre-wrap}
+.check{display:flex;gap:9px;padding:10px 0;border-bottom:1px solid #f0f1f3}
+.check:last-child{border-bottom:0}.check input{width:17px;height:17px;margin-top:2px;accent-color:var(--accent)}
+.toolcard{border:1px solid var(--line);border-radius:14px;padding:15px}
+.toolcard strong{display:block;margin-bottom:5px}.toolcard p{margin:0;color:var(--muted);font-size:13px}
+.timeline{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.step{background:#f9fafb;border:1px solid var(--line);border-radius:13px;padding:14px}
+.step b{display:block;margin-bottom:5px}.step span{font-size:12px;color:var(--muted)}
+.tablewrap{overflow:auto}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{text-align:left;border-bottom:1px solid var(--line);padding:10px 8px;vertical-align:top}
+th{font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted)}
+.empty{color:var(--muted);padding:16px;text-align:center}
+.notice{background:#fffaf0;border:1px solid #fedf89;border-radius:12px;padding:12px 14px;color:#7a2e0e;font-size:12px;margin-top:12px}
+footer{text-align:center;color:var(--muted);font-size:12px;padding:10px 0 44px}
+@media(max-width:900px){
+ .hero,.layout{grid-template-columns:1fr}.nav{position:relative;top:0}
+ .grid2,.grid3,.statgrid,.timeline{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="shell">
+  <div class="top">
+    <div class="brand">Aagam Product Studio</div>
+    <div class="pill">PORTFOLIO DEMO</div>
+  </div>
+
+  <section class="hero">
+    <div>
+      <div class="kicker">Resume-to-Interview OS</div>
+      <h1>Use free resume tools. Pay for the system that makes them useful.</h1>
+      <p class="sub">A guided job-search operating system that turns scattered free resume builders and AI tools into one repeatable workflow: capture your real experience, decode the role, build the right resume, track versions, follow up and learn what actually gets interviews.</p>
+    </div>
+    <div class="heroPanel">
+      <h3>The workflow</h3>
+      <div class="flow">
+        <div><b>01</b><br><small>Build your Career Vault</small></div>
+        <div><b>02</b><br><small>Decode the target job</small></div>
+        <div><b>03</b><br><small>Generate your build brief</small></div>
+        <div><b>04</b><br><small>Track applications + results</small></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="layout">
+    <aside class="nav">
+      <a href="#dashboard">Dashboard</a>
+      <a href="#vault">Career Vault</a>
+      <a href="#decoder">JD Decoder</a>
+      <a href="#brief">Resume Build Brief</a>
+      <a href="#toolstack">Free Tool Stack</a>
+      <a href="#versions">Resume Versions</a>
+      <a href="#pipeline">Application Pipeline</a>
+      <a href="#sprint">7-Day Sprint</a>
+      <div class="navNote">All entries are stored only in your browser for this demo.</div>
+    </aside>
+
+    <main>
+      <section class="card" id="dashboard">
+        <h2>Job Search Dashboard</h2>
+        <p class="desc">Measure real outcomes instead of relying on an arbitrary “ATS score.”</p>
+        <div class="statgrid">
+          <div class="stat"><div class="n" id="appsN">0</div><small>Applications</small></div>
+          <div class="stat"><div class="n" id="replyN">0</div><small>Replies</small></div>
+          <div class="stat"><div class="n" id="intN">0</div><small>Interviews</small></div>
+          <div class="stat"><div class="n" id="rateN">0%</div><small>Interview rate</small></div>
+        </div>
+        <div class="notice">The product does not promise an ATS pass or job offer. Its value is organization, faster tailoring, truthful role alignment and outcome tracking.</div>
+      </section>
+
+      <section class="card" id="vault">
+        <h2>1. Career Vault</h2>
+        <p class="desc">Enter achievements once. Reuse the strongest evidence across future resumes instead of asking AI to invent generic bullets every time.</p>
+        <div class="grid3">
+          <div><label>Category</label><select id="vType"><option>Achievement</option><option>Project</option><option>Skill Evidence</option><option>Certification</option><option>Leadership</option></select></div>
+          <div><label>Role / context</label><input id="vRole" placeholder="e.g. Marketing Manager"></div>
+          <div><label>Metric / outcome</label><input id="vMetric" placeholder="e.g. +28% qualified leads"></div>
+        </div>
+        <div style="margin-top:12px"><label>What happened?</label><textarea id="vText" placeholder="Describe what you actually did, tools used, scale, problem and result..."></textarea></div>
+        <button class="btn" onclick="addVault()">Save to Career Vault</button>
+        <div id="vaultList" class="list" style="margin-top:15px"></div>
+      </section>
+
+      <section class="card" id="decoder">
+        <h2>2. Job Description Decoder</h2>
+        <p class="desc">Paste a target job. The demo surfaces recurring terms and turns the posting into a practical tailoring brief.</p>
+        <div class="grid2">
+          <div><label>Company</label><input id="company" placeholder="e.g. Acme"></div>
+          <div><label>Target role</label><input id="role" placeholder="e.g. Senior Product Analyst"></div>
+        </div>
+        <div style="margin-top:12px"><label>Job description</label><textarea id="jd" placeholder="Paste the job description here..."></textarea></div>
+        <button class="btn dark" onclick="decodeJD()">Decode role</button>
+        <div class="output" id="jdOut">Your role brief will appear here.</div>
+      </section>
+
+      <section class="card" id="brief">
+        <h2>3. Resume Build Brief</h2>
+        <p class="desc">This is the product layer that free resume builders usually do not provide: decide what evidence to use before opening the tool.</p>
+        <div class="grid2">
+          <div><label>Career stage</label>
+            <select id="stage">
+              <option>Experienced professional</option>
+              <option>Fresher / early career</option>
+              <option>Career switcher</option>
+              <option>Returning to work</option>
+            </select>
+          </div>
+          <div><label>Resume goal</label>
+            <select id="goal">
+              <option>Tailor to one specific job</option>
+              <option>Create a strong base resume</option>
+              <option>Move into a new function</option>
+              <option>Condense to one page</option>
+            </select>
+          </div>
+        </div>
+        <div class="rowActions"><button class="btn" onclick="makeBrief()">Generate build brief</button><button class="btn light" onclick="makePrompt()">Generate AI prompt</button></div>
+        <div class="output" id="briefOut">Your build brief will appear here.</div>
+      </section>
+
+      <section class="card" id="toolstack">
+        <h2>4. Free Tool Stack</h2>
+        <p class="desc">The OS does not try to replace free tools. It tells the user what each tool should do in the workflow.</p>
+        <div class="grid2">
+          <div class="toolcard"><strong>AI drafting tool</strong><p>Use for rewriting summaries and bullets from facts you already entered in the Career Vault. Never invent employers, metrics or skills.</p></div>
+          <div class="toolcard"><strong>ATS-safe template / builder</strong><p>Use only after the content brief is ready. Choose a simple readable structure and export in the employer's requested format.</p></div>
+          <div class="toolcard"><strong>Word processor / editor</strong><p>Use for final spacing, consistency, proofing and human review.</p></div>
+          <div class="toolcard"><strong>Job board + company careers page</strong><p>Use the OS to save the role, build a tailored version and record the outcome rather than applying blindly.</p></div>
+        </div>
+        <p class="notice">For a creator-branded version, these cards can point directly to the exact free sites and tools recommended in the creator's video.</p>
+      </section>
+
+      <section class="card" id="versions">
+        <h2>5. Resume Version Lab</h2>
+        <p class="desc">Track which version you used and whether it produced replies or interviews. That creates a real feedback loop.</p>
+        <div class="grid3">
+          <div><label>Version name</label><input id="verName" placeholder="e.g. Data Analyst v3"></div>
+          <div><label>Target role</label><input id="verRole" placeholder="e.g. Data Analyst"></div>
+          <div><label>Build route</label><input id="verTool" placeholder="e.g. Claude + free Word template"></div>
+        </div>
+        <button class="btn" style="margin-top:12px" onclick="addVersion()">Add version</button>
+        <div class="tablewrap" style="margin-top:14px"><table><thead><tr><th>Version</th><th>Role</th><th>Build route</th><th>Applications</th><th>Interviews</th><th>Rate</th></tr></thead><tbody id="verRows"></tbody></table></div>
+      </section>
+
+      <section class="card" id="pipeline">
+        <h2>6. Application Pipeline</h2>
+        <p class="desc">Turn “I sent a resume” into a system: target → tailor → apply → follow up → interview → learn.</p>
+        <div class="grid3">
+          <div><label>Company</label><input id="pCompany" placeholder="Company"></div>
+          <div><label>Role</label><input id="pRole" placeholder="Role"></div>
+          <div><label>Resume version</label><input id="pVersion" placeholder="e.g. Data Analyst v3"></div>
+        </div>
+        <div class="grid3" style="margin-top:12px">
+          <div><label>Status</label><select id="pStatus"><option>Applied</option><option>Reply</option><option>Recruiter Screen</option><option>Interview</option><option>Final Interview</option><option>Offer</option><option>Rejected</option></select></div>
+          <div><label>Next action</label><input id="pNext" placeholder="Follow up Friday"></div>
+          <div><label>Date</label><input id="pDate" type="date"></div>
+        </div>
+        <button class="btn" style="margin-top:12px" onclick="addApp()">Add application</button>
+        <div class="tablewrap" style="margin-top:14px"><table><thead><tr><th>Company</th><th>Role</th><th>Version</th><th>Status</th><th>Next action</th><th>Date</th></tr></thead><tbody id="appRows"></tbody></table></div>
+      </section>
+
+      <section class="card" id="sprint">
+        <h2>7. 7-Day Resume-to-Interview Sprint</h2>
+        <p class="desc">A guided implementation layer gives the product an outcome instead of leaving the user with another template.</p>
+        <div class="timeline">
+          <div class="step"><b>Day 1</b><span>Build Career Vault: achievements, projects, skills, certifications.</span></div>
+          <div class="step"><b>Day 2</b><span>Choose target roles and save 5 real job descriptions.</span></div>
+          <div class="step"><b>Day 3</b><span>Create one base resume using the creator's recommended free tool stack.</span></div>
+          <div class="step"><b>Day 4</b><span>Create 2 tailored variants from the same factual Career Vault.</span></div>
+          <div class="step"><b>Day 5</b><span>Apply to best-fit roles and record each resume version used.</span></div>
+          <div class="step"><b>Day 6</b><span>Follow up where appropriate and prepare a reusable interview story bank.</span></div>
+          <div class="step"><b>Day 7</b><span>Review replies/interviews, identify the best-performing version, refine.</span></div>
+        </div>
+      </section>
+    </main>
+  </div>
+  <footer>Resume-to-Interview OS — portfolio demo by Aagam Product Studio</footer>
+</div>
+
+<script>
+const KEY='resume_os_demo_v1';
+let state=JSON.parse(localStorage.getItem(KEY)||'{"vault":[],"versions":[],"apps":[]}');
+const save=()=>localStorage.setItem(KEY,JSON.stringify(state));
+const esc=s=>(s||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+
+function render(){
+  vaultList.innerHTML=state.vault.length?state.vault.map((x,i)=>`<div class="item"><div><b>${esc(x.role||x.type)}</b> <span class="tag">${esc(x.type)}</span><br><small>${esc(x.text)}${x.metric?' · '+esc(x.metric):''}</small></div><button class="btn sm light" onclick="delVault(${i})">Remove</button></div>`).join(''):'<div class="empty">No Career Vault entries yet.</div>';
+  verRows.innerHTML=state.versions.length?state.versions.map((v,i)=>{
+    let apps=state.apps.filter(a=>a.version.toLowerCase()===v.name.toLowerCase()).length;
+    let ints=state.apps.filter(a=>a.version.toLowerCase()===v.name.toLowerCase() && ['Recruiter Screen','Interview','Final Interview','Offer'].includes(a.status)).length;
+    let rate=apps?Math.round(ints/apps*100):0;
+    return `<tr><td>${esc(v.name)}</td><td>${esc(v.role)}</td><td>${esc(v.tool)}</td><td>${apps}</td><td>${ints}</td><td>${rate}%</td></tr>`;
+  }).join(''):'<tr><td colspan="6" class="empty">No resume versions yet.</td></tr>';
+  appRows.innerHTML=state.apps.length?state.apps.map(a=>`<tr><td>${esc(a.company)}</td><td>${esc(a.role)}</td><td>${esc(a.version)}</td><td><span class="tag ${['Interview','Final Interview','Offer','Recruiter Screen'].includes(a.status)?'good':''}">${esc(a.status)}</span></td><td>${esc(a.next)}</td><td>${esc(a.date)}</td></tr>`).join(''):'<tr><td colspan="6" class="empty">No applications yet.</td></tr>';
+  let apps=state.apps.length;
+  let replies=state.apps.filter(a=>['Reply','Recruiter Screen','Interview','Final Interview','Offer'].includes(a.status)).length;
+  let ints=state.apps.filter(a=>['Recruiter Screen','Interview','Final Interview','Offer'].includes(a.status)).length;
+  appsN.textContent=apps; replyN.textContent=replies; intN.textContent=ints; rateN.textContent=(apps?Math.round(ints/apps*100):0)+'%';
+}
+function addVault(){
+  let x={type:vType.value,role:vRole.value.trim(),metric:vMetric.value.trim(),text:vText.value.trim()};
+  if(!x.text){alert('Add the achievement or evidence first.');return;}
+  state.vault.unshift(x); save(); vRole.value=vMetric.value=vText.value=''; render();
+}
+function delVault(i){state.vault.splice(i,1);save();render()}
+const stop=new Set('the and for with this that from into your you are will have has had they their them our job role team years experience skills strong using use work about more than who what when where how can must should preferred required requirements responsibilities'.split(' '));
+function words(t){return (t.toLowerCase().match(/[a-z][a-z0-9+#./-]{2,}/g)||[]).filter(w=>!stop.has(w))}
+function topTerms(t,n=12){let c={};words(t).forEach(w=>c[w]=(c[w]||0)+1);return Object.entries(c).sort((a,b)=>b[1]-a[1]).slice(0,n).map(x=>x[0])}
+function decodeJD(){
+  let txt=jd.value.trim(); if(!txt){jdOut.textContent='Paste a job description first.';return}
+  let terms=topTerms(txt);
+  jdOut.textContent=`TARGET: ${role.value||'Target role'}${company.value?' at '+company.value:''}\n\nRecurring / high-signal terms to review:\n• ${terms.join('\n• ')}\n\nNext step:\nMatch these requirements against evidence already stored in your Career Vault. Do not add a keyword unless you can truthfully support it with real experience, a project, skill or certification.`;
+}
+function makeBrief(){
+  let terms=jd.value.trim()?topTerms(jd.value).slice(0,8):[];
+  let evidence=state.vault.slice(0,6).map(x=>`• ${x.role||x.type}: ${x.text}${x.metric?' ('+x.metric+')':''}`).join('\n')||'• Add evidence to your Career Vault first.';
+  let order=stage.value.includes('Fresher')?'Contact → Summary → Education → Projects → Skills → Certifications':stage.value.includes('Career switcher')?'Contact → Targeted Summary → Transferable Skills → Relevant Projects / Experience → Education':'Contact → Targeted Summary → Skills → Experience → Education → Certifications / Projects';
+  briefOut.textContent=`RESUME BUILD BRIEF\n\nTarget: ${role.value||'[target role]'}${company.value?' at '+company.value:''}\nCareer stage: ${stage.value}\nGoal: ${goal.value}\n\nRecommended section order:\n${order}\n\nJob terms to consciously review:\n${terms.length?'• '+terms.join('\n• '):'• Paste a job description to generate these.'}\n\nBest factual evidence currently in your vault:\n${evidence}\n\nBUILD RULES\n1. Start from facts, not AI-generated claims.\n2. Use the target job to decide what to emphasize and what to omit.\n3. Ask the free resume/AI tool to rewrite and structure — not invent.\n4. Save this as a named version so you can measure its real interview rate.`;
+}
+function makePrompt(){
+  let evidence=state.vault.slice(0,8).map(x=>`${x.type} | ${x.role} | ${x.text}${x.metric?' | '+x.metric:''}`).join('\n')||'[Paste your factual career evidence here]';
+  let j=jd.value.trim()||'[Paste job description here]';
+  briefOut.textContent=`AI RESUME BUILD PROMPT\n\nYou are helping me tailor a resume for ${role.value||'[target role]'}${company.value?' at '+company.value:''}.\n\nRules:\n- Use ONLY facts I provide below.\n- Do not invent metrics, responsibilities, employers, certifications, tools or experience.\n- Keep wording concise and achievement-focused.\n- Prioritize evidence that matches the target job.\n- If a requirement is unsupported, flag the gap instead of pretending I have it.\n- Keep the structure simple and easy to parse.\n\nMY FACTUAL CAREER VAULT:\n${evidence}\n\nTARGET JOB DESCRIPTION:\n${j}\n\nReturn:\n1. A 2–3 line targeted professional summary.\n2. The 6–10 strongest skills supported by my evidence and relevant to this role.\n3. Rewritten experience/project bullets using only my facts.\n4. A short list of job requirements I cannot currently prove.\n5. A final checklist of what I should manually verify before exporting.`;
+}
+function addVersion(){
+  let x={name:verName.value.trim(),role:verRole.value.trim(),tool:verTool.value.trim()};
+  if(!x.name){alert('Give the version a name.');return}
+  state.versions.unshift(x);save();verName.value=verRole.value=verTool.value='';render();
+}
+function addApp(){
+  let x={company:pCompany.value.trim(),role:pRole.value.trim(),version:pVersion.value.trim(),status:pStatus.value,next:pNext.value.trim(),date:pDate.value};
+  if(!x.company||!x.role){alert('Add company and role.');return}
+  state.apps.unshift(x);save();pCompany.value=pRole.value=pVersion.value=pNext.value='';pDate.value='';render();
+}
+render();
+</script>
+</body>
+</html>

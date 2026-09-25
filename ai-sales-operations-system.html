@@ -1,0 +1,398 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI Sales Operations System — Miltu Studios</title>
+<meta name="description" content="Interactive AI sales operations demo by Miltu Studios: lead intake, analysis, research, qualification, CRM sync, response drafting and follow-up automation.">
+<style>
+:root{
+  --bg:#07090f;--surface:#0d111b;--surface2:#111725;--surface3:#151c2d;
+  --line:rgba(255,255,255,.085);--text:#f5f7fb;--muted:#8f9ab0;
+  --purple:#8c83ff;--purple2:#b18cff;--green:#50d890;--amber:#f2bf5e;
+  --red:#ff7373;--blue:#65a7ff;--radius:18px;--shadow:0 22px 70px rgba(0,0,0,.35)
+}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--text);
+font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+body{background:
+radial-gradient(circle at 12% 0%,rgba(140,131,255,.11),transparent 25%),
+radial-gradient(circle at 90% 5%,rgba(101,167,255,.07),transparent 24%),var(--bg)}
+button,textarea{font:inherit}.app{min-height:100vh;display:grid;grid-template-columns:238px 1fr}
+.sidebar{border-right:1px solid var(--line);padding:22px 16px;display:flex;flex-direction:column;
+background:rgba(9,12,19,.9);position:sticky;top:0;height:100vh;z-index:20}
+.brand{display:flex;align-items:center;gap:11px;font-weight:850;margin:2px 8px 28px}
+.logo{width:34px;height:34px;border-radius:11px;display:grid;place-items:center;font-weight:900;
+background:linear-gradient(135deg,var(--purple),var(--purple2));box-shadow:0 10px 28px rgba(140,131,255,.26)}
+.brand small{display:block;color:var(--muted);font-weight:600;font-size:10px;margin-top:2px;letter-spacing:.4px}
+.nav{display:grid;gap:6px}.nav button{border:0;background:transparent;color:var(--muted);text-align:left;
+padding:11px 12px;border-radius:11px;cursor:pointer;display:flex;align-items:center;justify-content:space-between}
+.nav button:hover,.nav button.active{background:rgba(255,255,255,.055);color:#fff}
+.nav .count{font-size:10px;background:rgba(140,131,255,.18);color:#c8c4ff;padding:2px 7px;border-radius:999px}
+.side-bottom{margin-top:auto}.status-card{border:1px solid var(--line);background:rgba(255,255,255,.025);
+border-radius:14px;padding:13px}.status-line{display:flex;align-items:center;gap:8px;font-size:12px}
+.live-dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 0 5px rgba(80,216,144,.08)}
+.status-card p{margin:8px 0 0;color:var(--muted);font-size:11px;line-height:1.5}
+.madeby{font-size:10px;color:#667086;margin:15px 8px 2px}.madeby a{color:#9da7bd;text-decoration:none}
+.main{min-width:0}.topbar{height:72px;border-bottom:1px solid var(--line);display:flex;align-items:center;
+justify-content:space-between;padding:0 26px;position:sticky;top:0;background:rgba(7,9,15,.88);backdrop-filter:blur(18px);z-index:15}
+.top-title{display:flex;align-items:center;gap:12px}.top-title h1{font-size:15px;margin:0}.demo-pill{font-size:10px;
+text-transform:uppercase;letter-spacing:.7px;border:1px solid rgba(140,131,255,.25);color:#c9c5ff;
+background:rgba(140,131,255,.09);padding:5px 8px;border-radius:999px;font-weight:800}
+.top-actions{display:flex;align-items:center;gap:10px}.ghost-btn,.primary-btn,.small-btn{border:1px solid var(--line);
+color:var(--text);background:rgba(255,255,255,.035);border-radius:10px;padding:9px 12px;cursor:pointer;font-weight:750;font-size:12px}
+.primary-btn{background:#f6f7fb;color:#0a0c11;border-color:#f6f7fb}.primary-btn:hover{background:#fff}
+.ghost-btn:hover,.small-btn:hover{background:rgba(255,255,255,.075)}.workspace{padding:26px;max-width:1500px;margin:auto}
+.view{display:none}.view.active{display:block}.eyebrow{color:#aaa5ff;text-transform:uppercase;letter-spacing:1px;
+font-size:10px;font-weight:850}.page-head{display:flex;justify-content:space-between;gap:20px;align-items:end;margin-bottom:22px}
+.page-head h2{font-size:30px;letter-spacing:-1px;margin:5px 0 0}.page-head p{margin:0;color:var(--muted);font-size:13px;max-width:560px}
+.metric-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin-bottom:16px}.metric{border:1px solid var(--line);
+background:linear-gradient(180deg,rgba(255,255,255,.038),rgba(255,255,255,.018));border-radius:15px;padding:16px}
+.metric .label{font-size:11px;color:var(--muted)}.metric strong{font-size:25px;letter-spacing:-.8px;display:block;margin:7px 0 2px}
+.metric .trend{font-size:10px;color:var(--green)}.metric .trend.neutral{color:#a9b2c5}
+.grid-2{display:grid;grid-template-columns:1.3fr .7fr;gap:14px}.panel{border:1px solid var(--line);background:var(--surface);
+border-radius:17px;overflow:hidden}.panel-head{padding:15px 16px;border-bottom:1px solid var(--line);
+display:flex;align-items:center;justify-content:space-between}.panel-head h3{margin:0;font-size:13px}.panel-head span{font-size:10px;color:var(--muted)}
+.queue-row{display:grid;grid-template-columns:1.5fr .9fr .7fr .5fr;align-items:center;gap:10px;padding:14px 16px;
+border-bottom:1px solid var(--line);font-size:12px}.queue-row:last-child{border-bottom:0}.person{display:flex;gap:10px;align-items:center}
+.avatar{width:31px;height:31px;border-radius:9px;background:linear-gradient(135deg,#2a3350,#1b2133);display:grid;place-items:center;
+font-size:10px;font-weight:900;color:#cbd2e5}.person strong{font-size:12px}.person small{display:block;color:var(--muted);margin-top:2px}
+.score{font-weight:850}.score.high{color:var(--green)}.score.med{color:var(--amber)}.badge{display:inline-flex;border:1px solid var(--line);
+border-radius:999px;padding:4px 7px;font-size:9px;color:#b8c1d2;background:rgba(255,255,255,.025)}
+.badge.green{color:#83e9ad;border-color:rgba(80,216,144,.24);background:rgba(80,216,144,.07)}
+.badge.purple{color:#bdb8ff;border-color:rgba(140,131,255,.25);background:rgba(140,131,255,.08)}
+.activity{padding:6px 16px 14px}.event{display:grid;grid-template-columns:9px 1fr;gap:10px;padding:10px 0;position:relative}
+.event:before{content:"";position:absolute;left:4px;top:20px;bottom:-10px;width:1px;background:var(--line)}
+.event:last-child:before{display:none}.event-dot{width:9px;height:9px;border-radius:50%;background:#3b465f;margin-top:5px}
+.event-dot.good{background:var(--green)}.event-dot.ai{background:var(--purple)}.event strong{font-size:11px}.event p{margin:2px 0 0;
+font-size:10px;color:var(--muted);line-height:1.45}.health-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;padding:15px}
+.health{background:var(--surface2);border:1px solid var(--line);border-radius:12px;padding:12px}.health strong{font-size:18px;display:block}
+.health span{font-size:10px;color:var(--muted)}
+.inbox-layout{display:grid;grid-template-columns:310px minmax(0,1fr) 350px;gap:14px;align-items:start}
+.lead-list{border:1px solid var(--line);border-radius:17px;overflow:hidden;background:var(--surface)}
+.lead-list-head{padding:14px;border-bottom:1px solid var(--line);font-size:11px;color:var(--muted);display:flex;justify-content:space-between}
+.lead-card{padding:14px;border-bottom:1px solid var(--line);cursor:pointer;transition:.18s}.lead-card:last-child{border-bottom:0}
+.lead-card:hover,.lead-card.active{background:rgba(140,131,255,.075)}.lead-card-top{display:flex;justify-content:space-between;gap:8px}
+.lead-card h4{font-size:12px;margin:0}.lead-card time{font-size:9px;color:#68738a}.lead-card .company{font-size:10px;color:var(--muted);margin-top:3px}
+.lead-card p{font-size:10px;color:#b7c0d1;line-height:1.45;margin:9px 0 10px}.lead-meta{display:flex;gap:6px;flex-wrap:wrap}
+.detail{border:1px solid var(--line);border-radius:17px;background:var(--surface);overflow:hidden}.detail-head{padding:18px;border-bottom:1px solid var(--line)}
+.detail-head .from{font-size:10px;color:var(--muted)}.detail-head h3{font-size:19px;margin:5px 0 3px}.detail-head .company{font-size:11px;color:#aab4c7}
+.message{padding:18px;border-bottom:1px solid var(--line)}.message .subject{font-size:11px;color:#c4cbda;margin-bottom:9px;font-weight:800}
+.message p{font-size:12px;color:#aab4c7;line-height:1.65;margin:0;white-space:pre-line}.workflow{padding:18px}.workflow-title{display:flex;justify-content:space-between;
+align-items:center;margin-bottom:13px}.workflow-title h4{font-size:12px;margin:0}.step-list{display:grid;gap:8px}.step{border:1px solid var(--line);
+background:var(--surface2);border-radius:11px;padding:10px 11px;display:flex;align-items:center;gap:10px}.step-icon{width:23px;height:23px;
+border-radius:7px;background:#1b2233;display:grid;place-items:center;font-size:9px;color:#7f8ba2}.step span{font-size:10px}.step .state{margin-left:auto;
+font-size:9px;color:#69758c}.step.running{border-color:rgba(140,131,255,.28);background:rgba(140,131,255,.06)}
+.step.running .step-icon{background:rgba(140,131,255,.17);color:#c6c2ff}.step.done .step-icon{background:rgba(80,216,144,.1);color:var(--green)}
+.step.done .state{color:var(--green)}.spin{display:inline-block;width:10px;height:10px;border:2px solid rgba(255,255,255,.18);
+border-top-color:#bdb8ff;border-radius:50%;animation:spin .75s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
+.ai-panel{border:1px solid var(--line);border-radius:17px;background:linear-gradient(180deg,#101522,#0c1019);overflow:hidden;position:sticky;top:90px}
+.ai-head{padding:15px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}.ai-head strong{font-size:12px}
+.ai-head small{color:#aaa5ff;font-size:9px}.ai-empty{padding:42px 20px;text-align:center;color:var(--muted)}.ai-empty .orb{width:46px;height:46px;
+border-radius:50%;margin:0 auto 13px;background:radial-gradient(circle at 35% 30%,#c4c0ff,#6d65e8 46%,#24294a 70%);
+box-shadow:0 0 32px rgba(140,131,255,.25)}.ai-empty p{font-size:11px;line-height:1.6}.ai-content{display:none}.ai-content.show{display:block}
+.ai-section{padding:14px 15px;border-bottom:1px solid var(--line)}.ai-section:last-child{border-bottom:0}.ai-label{font-size:9px;text-transform:uppercase;
+letter-spacing:.8px;color:#78849a;font-weight:850;margin-bottom:8px}.fact-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.fact{border:1px solid var(--line);border-radius:10px;padding:8px;background:rgba(255,255,255,.018)}.fact span{display:block;color:#748096;font-size:8px;
+text-transform:uppercase;letter-spacing:.5px}.fact strong{display:block;font-size:10px;margin-top:4px}.score-ring{display:flex;align-items:center;gap:12px}
+.ring{width:54px;height:54px;border-radius:50%;background:conic-gradient(var(--green) 0 92%,#202839 92% 100%);display:grid;place-items:center;position:relative}
+.ring:before{content:"";position:absolute;inset:5px;background:#111725;border-radius:50%}.ring strong{position:relative;font-size:13px}.score-copy strong{font-size:11px}
+.score-copy p{margin:3px 0 0;font-size:9px;color:var(--muted);line-height:1.4}.research-copy,.recommend-copy{font-size:10px;color:#b8c1d1;line-height:1.55;margin:0}
+.recommend{border-left:2px solid var(--purple);padding-left:10px}.draft{width:100%;min-height:170px;resize:vertical;color:#cfd5e1;background:#0a0e16;
+border:1px solid var(--line);border-radius:10px;padding:10px;font-size:10px;line-height:1.55;outline:none}.draft:focus{border-color:rgba(140,131,255,.38)}
+.action-row{display:flex;gap:7px;margin-top:8px}.action-row button{flex:1}.sync-row{display:flex;align-items:center;justify-content:space-between;font-size:10px}
+.sync-ok{color:var(--green)}.kanban{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.column{border:1px solid var(--line);border-radius:15px;
+background:rgba(255,255,255,.018);min-height:420px}.column-head{padding:12px 13px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;
+font-size:11px}.deal{margin:10px;border:1px solid var(--line);background:var(--surface);border-radius:12px;padding:12px}.deal h4{font-size:11px;margin:0 0 3px}
+.deal p{margin:0;color:var(--muted);font-size:9px}.deal-value{display:flex;justify-content:space-between;align-items:center;margin-top:12px;font-size:9px}
+.deal-value strong{font-size:11px}.automation-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:13px}.automation-card{border:1px solid var(--line);
+background:var(--surface);border-radius:16px;padding:17px}.automation-top{display:flex;justify-content:space-between;gap:14px}.automation-card h3{font-size:13px;margin:0 0 4px}
+.automation-card p{font-size:10px;color:var(--muted);margin:0;line-height:1.5}.toggle{width:34px;height:19px;border-radius:999px;background:rgba(80,216,144,.18);
+border:1px solid rgba(80,216,144,.22);padding:2px}.toggle:after{content:"";display:block;width:13px;height:13px;border-radius:50%;background:var(--green);margin-left:14px}
+.flow{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-top:17px}.flow span{border:1px solid var(--line);background:var(--surface2);padding:7px 8px;
+border-radius:8px;font-size:9px}.flow i{font-style:normal;color:#556178;font-size:10px}.run-stats{display:flex;gap:16px;margin-top:16px;border-top:1px solid var(--line);padding-top:12px}
+.run-stats div strong{font-size:12px;display:block}.run-stats div span{font-size:8px;color:var(--muted)}
+.analytics-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.chart{border:1px solid var(--line);background:var(--surface);border-radius:16px;padding:17px}
+.chart h3{font-size:12px;margin:0 0 18px}.bars{display:grid;gap:12px}.barrow{display:grid;grid-template-columns:80px 1fr 35px;align-items:center;gap:9px;font-size:9px;color:var(--muted)}
+.bar{height:7px;background:#1a2130;border-radius:999px;overflow:hidden}.bar i{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,var(--purple),var(--purple2))}
+.funnel{display:flex;align-items:end;gap:9px;height:180px}.funnel-col{flex:1;text-align:center}.funnel-bar{background:linear-gradient(180deg,var(--purple),#5a55bb);
+border-radius:8px 8px 3px 3px;min-height:18px}.funnel-col strong{font-size:11px;display:block;margin-top:7px}.funnel-col span{font-size:8px;color:var(--muted)}
+.note{margin-top:13px;border:1px solid rgba(242,191,94,.18);background:rgba(242,191,94,.05);border-radius:12px;padding:10px 12px;
+font-size:9px;color:#d4bd8b;line-height:1.5}.toast{position:fixed;right:22px;bottom:22px;background:#f5f7fb;color:#0a0c11;padding:11px 14px;
+border-radius:11px;font-size:11px;font-weight:800;box-shadow:var(--shadow);transform:translateY(30px);opacity:0;pointer-events:none;transition:.25s;z-index:100}
+.toast.show{transform:translateY(0);opacity:1}.mobile-nav{display:none}
+@media(max-width:1150px){.app{grid-template-columns:74px 1fr}.brand span,.nav button>span:first-child,.side-bottom,.madeby{display:none}.brand{margin-left:4px}
+.sidebar{padding:20px 10px}.nav button{justify-content:center}.nav .count{display:none}.inbox-layout{grid-template-columns:260px 1fr}.ai-panel{grid-column:1/-1;position:static}}
+@media(max-width:780px){.app{display:block}.sidebar{display:none}.topbar{padding:0 15px}.workspace{padding:16px}.top-title h1{font-size:12px}.demo-pill{display:none}
+.page-head{display:block}.page-head p{margin-top:8px}.metric-grid{grid-template-columns:1fr 1fr}.grid-2,.analytics-grid,.automation-grid{grid-template-columns:1fr}
+.inbox-layout{grid-template-columns:1fr}.lead-list{max-height:330px;overflow:auto}.kanban{grid-template-columns:1fr 1fr}.queue-row{grid-template-columns:1.5fr .8fr .5fr}
+.queue-row>div:nth-child(3){display:none}.mobile-nav{display:flex;position:fixed;bottom:12px;left:12px;right:12px;z-index:40;background:rgba(15,20,31,.95);
+border:1px solid var(--line);border-radius:14px;padding:6px;backdrop-filter:blur(15px)}.mobile-nav button{flex:1;border:0;background:transparent;color:#8994a9;
+padding:9px 2px;font-size:8px;border-radius:8px}.mobile-nav button.active{background:rgba(255,255,255,.07);color:#fff}.workspace{padding-bottom:85px}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar">
+  <div class="brand"><div class="logo">M</div><span>Miltu Studios<small>AI SALES OPERATIONS</small></span></div>
+  <div class="nav">
+    <button class="active" data-view="overview"><span>Overview</span><span>◫</span></button>
+    <button data-view="inbox"><span>Lead Inbox</span><span class="count">5</span></button>
+    <button data-view="pipeline"><span>Pipeline</span><span>⌁</span></button>
+    <button data-view="automations"><span>Automations</span><span>⚡</span></button>
+    <button data-view="analytics"><span>Analytics</span><span>⌁</span></button>
+  </div>
+  <div class="side-bottom">
+    <div class="status-card"><div class="status-line"><span class="live-dot"></span><strong>All systems operational</strong></div>
+    <p>4 automations active<br>Last workflow completed 2m ago</p></div>
+  </div>
+  <div class="madeby">Interactive product demo by <a href="index.html">Miltu Studios</a></div>
+</aside>
+
+<main class="main">
+<header class="topbar">
+  <div class="top-title"><h1>AI Sales Operations System</h1><span class="demo-pill">Interactive demo</span></div>
+  <div class="top-actions"><button class="ghost-btn" id="resetBtn">Reset demo</button><a class="ghost-btn" href="index.html" style="text-decoration:none">← Miltu Studios</a></div>
+</header>
+
+<div class="workspace">
+<section class="view active" id="overview">
+  <div class="page-head"><div><div class="eyebrow">Command center</div><h2>Sales operations, without the busywork.</h2></div>
+  <p>A sample system showing how lead intake, research, qualification, follow-up and CRM updates can operate as one AI-assisted workflow.</p></div>
+  <div class="metric-grid">
+    <div class="metric"><span class="label">Leads processed</span><strong>184</strong><span class="trend">↑ 22% this month</span></div>
+    <div class="metric"><span class="label">Qualified opportunities</span><strong>47</strong><span class="trend">25.5% qualification rate</span></div>
+    <div class="metric"><span class="label">Estimated pipeline</span><strong>$318K</strong><span class="trend neutral">Across 21 active deals</span></div>
+    <div class="metric"><span class="label">Team time saved</span><strong>71h</strong><span class="trend">≈ 23 min per lead</span></div>
+  </div>
+  <div class="grid-2">
+    <div class="panel">
+      <div class="panel-head"><h3>Priority lead queue</h3><span>AI-ranked by intent + fit</span></div>
+      <div class="queue-row"><div class="person"><div class="avatar">PR</div><div><strong>Priya Rao</strong><small>Meridian Properties</small></div></div><div><span class="badge purple">Automation</span></div><div class="score high">92 / 100</div><div><span class="badge green">High</span></div></div>
+      <div class="queue-row"><div class="person"><div class="avatar">LM</div><div><strong>Leo Martin</strong><small>Northstar Advisory</small></div></div><div><span class="badge purple">AI Research</span></div><div class="score high">88 / 100</div><div><span class="badge green">High</span></div></div>
+      <div class="queue-row"><div class="person"><div class="avatar">ER</div><div><strong>Elena Ruiz</strong><small>Verba Institute</small></div></div><div><span class="badge purple">Digital Product</span></div><div class="score high">84 / 100</div><div><span class="badge green">High</span></div></div>
+      <div class="queue-row"><div class="person"><div class="avatar">JW</div><div><strong>James Walker</strong><small>FieldOps Software</small></div></div><div><span class="badge">Workflow</span></div><div class="score med">73 / 100</div><div><span class="badge">Medium</span></div></div>
+    </div>
+    <div class="panel">
+      <div class="panel-head"><h3>System activity</h3><span>Today</span></div>
+      <div class="activity">
+        <div class="event"><span class="event-dot good"></span><div><strong>Lead qualified automatically</strong><p>Meridian Properties moved to Qualified after intent + fit scoring.</p></div></div>
+        <div class="event"><span class="event-dot ai"></span><div><strong>Research brief generated</strong><p>Northstar Advisory enriched with company context and likely use case.</p></div></div>
+        <div class="event"><span class="event-dot"></span><div><strong>CRM record updated</strong><p>Verba Institute synced with requirements, value range and next step.</p></div></div>
+        <div class="event"><span class="event-dot"></span><div><strong>Follow-up queued</strong><p>FieldOps Software scheduled for a 48-hour follow-up if no reply.</p></div></div>
+      </div>
+      <div class="health-grid"><div class="health"><strong>99.4%</strong><span>Workflow success</span></div><div class="health"><strong>4m 12s</strong><span>Avg. response time</span></div></div>
+    </div>
+  </div>
+  <div class="note">Demo note: all companies, leads, messages and performance figures shown here are fictional sample data. The interface demonstrates the workflow Miltu Studios can build and connect to a client’s actual inbox, CRM, APIs and AI models.</div>
+</section>
+
+<section class="view" id="inbox">
+  <div class="page-head"><div><div class="eyebrow">Lead inbox</div><h2>From enquiry to next action.</h2></div>
+  <p>Select a lead and run the workflow to see how an AI-assisted system can analyse, research, qualify, draft and sync in one place.</p></div>
+  <div class="inbox-layout">
+    <div class="lead-list" id="leadList"><div class="lead-list-head"><span>New enquiries</span><span>5 unread</span></div></div>
+    <div class="detail">
+      <div class="detail-head"><div class="from">INCOMING ENQUIRY</div><h3 id="leadName">Priya Rao</h3><div class="company" id="leadCompany">Meridian Properties · Director, Sales</div></div>
+      <div class="message"><div class="subject" id="leadSubject">Re: automating our inbound property enquiries</div><p id="leadMessage"></p></div>
+      <div class="workflow">
+        <div class="workflow-title"><h4>AI workflow</h4><button class="primary-btn" id="runWorkflow">Run workflow</button></div>
+        <div class="step-list">
+          <div class="step" data-step="0"><div class="step-icon">1</div><span>Extract enquiry & requirements</span><span class="state">Waiting</span></div>
+          <div class="step" data-step="1"><div class="step-icon">2</div><span>Research company context</span><span class="state">Waiting</span></div>
+          <div class="step" data-step="2"><div class="step-icon">3</div><span>Score intent, fit & urgency</span><span class="state">Waiting</span></div>
+          <div class="step" data-step="3"><div class="step-icon">4</div><span>Recommend next action</span><span class="state">Waiting</span></div>
+          <div class="step" data-step="4"><div class="step-icon">5</div><span>Draft personalised response</span><span class="state">Waiting</span></div>
+          <div class="step" data-step="5"><div class="step-icon">6</div><span>Sync CRM & create follow-up</span><span class="state">Waiting</span></div>
+        </div>
+      </div>
+    </div>
+    <aside class="ai-panel">
+      <div class="ai-head"><strong>AI analysis</strong><small>MODEL OUTPUT</small></div>
+      <div class="ai-empty" id="aiEmpty"><div class="orb"></div><p>Run the workflow to analyse this enquiry, enrich company context and prepare the next action.</p></div>
+      <div class="ai-content" id="aiContent">
+        <div class="ai-section"><div class="ai-label">Extracted signals</div><div class="fact-grid" id="facts"></div></div>
+        <div class="ai-section"><div class="ai-label">Opportunity score</div><div class="score-ring"><div class="ring" id="scoreRing"><strong id="scoreNum">92</strong></div><div class="score-copy"><strong id="scoreLabel">High-intent opportunity</strong><p id="scoreWhy">Strong fit, clear workflow pain and near-term buying signal.</p></div></div></div>
+        <div class="ai-section"><div class="ai-label">Company research</div><p class="research-copy" id="researchCopy"></p></div>
+        <div class="ai-section"><div class="ai-label">Recommended action</div><div class="recommend"><p class="recommend-copy" id="recommendCopy"></p></div></div>
+        <div class="ai-section"><div class="ai-label">Draft response</div><textarea class="draft" id="draftText"></textarea><div class="action-row"><button class="small-btn" id="copyBtn">Copy</button><button class="primary-btn" id="approveBtn">Approve & queue</button></div></div>
+        <div class="ai-section"><div class="sync-row"><span>CRM record</span><strong class="sync-ok">✓ Synced</strong></div><div class="sync-row" style="margin-top:7px"><span>Follow-up</span><strong class="sync-ok">✓ Scheduled</strong></div></div>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<section class="view" id="pipeline">
+  <div class="page-head"><div><div class="eyebrow">CRM pipeline</div><h2>Every opportunity in context.</h2></div><p>Lead intelligence, estimated value and next actions stay attached to the opportunity instead of scattered across tools.</p></div>
+  <div class="kanban">
+    <div class="column"><div class="column-head"><span>New</span><span>4</span></div>
+      <div class="deal"><h4>FieldOps Software</h4><p>Sales workflow automation</p><div class="deal-value"><strong>$8K–$14K</strong><span class="badge">73 score</span></div></div>
+      <div class="deal"><h4>Halcyon Legal</h4><p>Document intake automation</p><div class="deal-value"><strong>$6K–$11K</strong><span class="badge">69 score</span></div></div>
+    </div>
+    <div class="column"><div class="column-head"><span>Qualified</span><span>3</span></div>
+      <div class="deal"><h4>Meridian Properties</h4><p>Lead qualification + CRM</p><div class="deal-value"><strong>$18K–$25K</strong><span class="badge green">92 score</span></div></div>
+      <div class="deal"><h4>Verba Institute</h4><p>Self-study platform</p><div class="deal-value"><strong>$12K–$18K</strong><span class="badge green">84 score</span></div></div>
+    </div>
+    <div class="column"><div class="column-head"><span>Discovery</span><span>2</span></div>
+      <div class="deal"><h4>Northstar Advisory</h4><p>AI research workflow</p><div class="deal-value"><strong>$15K–$22K</strong><span class="badge green">88 score</span></div></div>
+      <div class="deal"><h4>Arcwell Commerce</h4><p>Support triage system</p><div class="deal-value"><strong>$10K–$16K</strong><span class="badge">79 score</span></div></div>
+    </div>
+    <div class="column"><div class="column-head"><span>Proposal</span><span>2</span></div>
+      <div class="deal"><h4>Crestline Partners</h4><p>Knowledge operations system</p><div class="deal-value"><strong>$24K</strong><span class="badge purple">Proposal sent</span></div></div>
+      <div class="deal"><h4>UrbanForm Studio</h4><p>Client onboarding portal</p><div class="deal-value"><strong>$13K</strong><span class="badge purple">Reviewing</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="view" id="automations">
+  <div class="page-head"><div><div class="eyebrow">Automation layer</div><h2>Workflows that move without chasing.</h2></div><p>Each automation combines triggers, business logic, AI analysis and actions across the systems a team already uses.</p></div>
+  <div class="automation-grid">
+    <article class="automation-card"><div class="automation-top"><div><h3>Inbound lead intelligence</h3><p>Analyse every new enquiry, enrich context and score buying intent.</p></div><span class="toggle"></span></div>
+      <div class="flow"><span>New enquiry</span><i>→</i><span>Extract</span><i>→</i><span>Research</span><i>→</i><span>Score</span><i>→</i><span>CRM</span></div>
+      <div class="run-stats"><div><strong>184</strong><span>RUNS</span></div><div><strong>99.5%</strong><span>SUCCESS</span></div><div><strong>42s</strong><span>AVG RUN</span></div></div></article>
+    <article class="automation-card"><div class="automation-top"><div><h3>Smart response drafting</h3><p>Draft contextual replies using enquiry details, company context and offer fit.</p></div><span class="toggle"></span></div>
+      <div class="flow"><span>Qualified lead</span><i>→</i><span>Context</span><i>→</i><span>Draft</span><i>→</i><span>Human approval</span></div>
+      <div class="run-stats"><div><strong>129</strong><span>RUNS</span></div><div><strong>100%</strong><span>REVIEWED</span></div><div><strong>2m</strong><span>TIME SAVED</span></div></div></article>
+    <article class="automation-card"><div class="automation-top"><div><h3>CRM enrichment</h3><p>Create and update structured CRM records from unstructured enquiries.</p></div><span class="toggle"></span></div>
+      <div class="flow"><span>Lead analysed</span><i>→</i><span>Map fields</span><i>→</i><span>Upsert CRM</span><i>→</i><span>Assign owner</span></div>
+      <div class="run-stats"><div><strong>181</strong><span>RECORDS</span></div><div><strong>98.9%</strong><span>SYNC</span></div><div><strong>14</strong><span>FIELDS</span></div></div></article>
+    <article class="automation-card"><div class="automation-top"><div><h3>Follow-up orchestration</h3><p>Schedule next steps based on stage, urgency and whether the prospect replies.</p></div><span class="toggle"></span></div>
+      <div class="flow"><span>No reply</span><i>→</i><span>Wait 48h</span><i>→</i><span>Check status</span><i>→</i><span>Follow-up</span></div>
+      <div class="run-stats"><div><strong>63</strong><span>QUEUED</span></div><div><strong>21%</strong><span>REPLY RATE</span></div><div><strong>8.4h</strong><span>SAVED</span></div></div></article>
+  </div>
+</section>
+
+<section class="view" id="analytics">
+  <div class="page-head"><div><div class="eyebrow">Performance</div><h2>Know what the system is improving.</h2></div><p>Automation is only useful when it improves response time, qualification quality, conversion or team capacity.</p></div>
+  <div class="metric-grid">
+    <div class="metric"><span class="label">Median first response</span><strong>4m 12s</strong><span class="trend">↓ from 3h 41m</span></div>
+    <div class="metric"><span class="label">Qualified lead rate</span><strong>25.5%</strong><span class="trend">↑ 6.8 pts</span></div>
+    <div class="metric"><span class="label">Follow-up completion</span><strong>96%</strong><span class="trend">↑ 31 pts</span></div>
+    <div class="metric"><span class="label">Manual admin avoided</span><strong>71h</strong><span class="trend neutral">This month</span></div>
+  </div>
+  <div class="analytics-grid">
+    <div class="chart"><h3>Lead sources → qualification</h3><div class="bars">
+      <div class="barrow"><span>Website</span><div class="bar"><i style="width:82%"></i></div><strong>31%</strong></div>
+      <div class="barrow"><span>Referral</span><div class="bar"><i style="width:70%"></i></div><strong>27%</strong></div>
+      <div class="barrow"><span>LinkedIn</span><div class="bar"><i style="width:61%"></i></div><strong>23%</strong></div>
+      <div class="barrow"><span>Outbound</span><div class="bar"><i style="width:44%"></i></div><strong>17%</strong></div>
+      <div class="barrow"><span>Partner</span><div class="bar"><i style="width:37%"></i></div><strong>14%</strong></div>
+    </div></div>
+    <div class="chart"><h3>Conversion funnel</h3><div class="funnel">
+      <div class="funnel-col"><div class="funnel-bar" style="height:155px"></div><strong>184</strong><span>Leads</span></div>
+      <div class="funnel-col"><div class="funnel-bar" style="height:110px"></div><strong>91</strong><span>Engaged</span></div>
+      <div class="funnel-col"><div class="funnel-bar" style="height:72px"></div><strong>47</strong><span>Qualified</span></div>
+      <div class="funnel-col"><div class="funnel-bar" style="height:48px"></div><strong>21</strong><span>Discovery</span></div>
+      <div class="funnel-col"><div class="funnel-bar" style="height:29px"></div><strong>11</strong><span>Proposal</span></div>
+    </div></div>
+  </div>
+  <div class="note">Illustrative analytics shown with fictional sample data. In a production build, these metrics can be connected to the client’s CRM, inbox, ad platforms, forms, calendars and internal systems.</div>
+</section>
+</div>
+</main>
+</div>
+
+<div class="mobile-nav">
+  <button class="active" data-view="overview">Overview</button><button data-view="inbox">Inbox</button><button data-view="pipeline">Pipeline</button><button data-view="automations">Automation</button><button data-view="analytics">Analytics</button>
+</div>
+<div class="toast" id="toast">Action completed</div>
+
+<script>
+var leads=[
+ {id:1,initials:'PR',name:'Priya Rao',company:'Meridian Properties',role:'Director, Sales',time:'4m',
+  subject:'Re: automating our inbound property enquiries',
+  message:'Hi Miltu team,\\n\\nWe receive roughly 250–300 property enquiries a week across our website, Meta ads and WhatsApp. Our sales coordinators manually read them, work out which project they are interested in, check budget and location, then assign them to a salesperson.\\n\\nWe want to know whether this can be automated without losing the personal touch. Ideally the system would qualify enquiries, update our CRM and flag the strongest leads for immediate calls. We are reviewing options this month.\\n\\nBest,\\nPriya',
+  need:'Lead qualification',urgency:'High',value:'$18K–$25K',sentiment:'Positive',score:92,scoreLabel:'High-intent opportunity',
+  why:'Strong fit, quantified workflow pain and a near-term buying signal.',
+  research:'Meridian Properties is a fictional multi-project property developer with a sales team handling high-volume inbound enquiries. The enquiry indicates fragmented lead sources, manual qualification and CRM handoff as the primary operational bottlenecks.',
+  recommendation:'Prioritise for a discovery call. Prepare a short prototype showing website + WhatsApp intake, project/budget extraction, lead scoring, CRM routing and a human escalation path for high-value prospects.',
+  draft:'Hi Priya,\\n\\nYes — this is exactly the kind of workflow that can be automated while keeping a human in the loop for the conversations that matter.\\n\\nBased on what you described, I would map the system around four stages: capturing enquiries from your current channels, extracting project/budget/location signals, scoring and routing each lead, and updating the CRM automatically. High-intent enquiries could be surfaced immediately to the appropriate salesperson rather than waiting in a general queue.\\n\\nI would be happy to walk you through a simple prototype using a property-sales workflow. Would Tuesday or Wednesday suit you for a 20-minute call?\\n\\nBest,\\nMiltu Studios'},
+ {id:2,initials:'LM',name:'Leo Martin',company:'Northstar Advisory',role:'Managing Partner',time:'19m',
+  subject:'AI research workflow for our consulting team',
+  message:'Hello,\\n\\nOur consultants spend a surprising amount of time preparing first-pass company research before client meetings. The work is repetitive: company overview, recent developments, competitors, leadership changes and relevant filings.\\n\\nCould you build an internal system where a consultant enters a company and receives a structured research brief with sources, while still requiring human review before it is used?\\n\\nWe have around 35 consultants and would start with one practice group.\\n\\nLeo',
+  need:'AI research workflow',urgency:'Medium-high',value:'$15K–$22K',sentiment:'Positive',score:88,scoreLabel:'Strong strategic fit',
+  why:'Clear repeatable workflow, defined user group and a sensible pilot scope.',
+  research:'Northstar Advisory is a fictional consulting firm. The requested workflow is research-heavy, repeatable and well suited to source-aware AI assistance with a human review layer and reusable output templates.',
+  recommendation:'Propose a pilot for one practice group. Demonstrate source collection, structured synthesis, citation retention, review checkpoints and reusable briefing templates before discussing broader deployment.',
+  draft:'Hi Leo,\\n\\nYes. I would treat this less as a chatbot and more as a structured research workflow for your consultants.\\n\\nA user could enter a company, choose the briefing type, and the system could gather approved sources, organise findings into your preferred framework, retain citations, flag uncertainty and route the brief through a human review step before it is shared internally.\\n\\nStarting with one practice group is a sensible way to validate the research structure and governance before expanding it across the firm.\\n\\nIf useful, I can show you how we would structure the pilot and the review layer on a short call.\\n\\nBest,\\nMiltu Studios'},
+ {id:3,initials:'ER',name:'Elena Ruiz',company:'Verba Institute',role:'Academic Director',time:'32m',
+  subject:'Self-study platform for our language programmes',
+  message:'Hi,\\n\\nWe run instructor-led language programmes but students keep asking for more structured practice between classes. We have our own exercises, recordings and course methodology, but they currently live across PDFs, Drive folders and our LMS.\\n\\nWe are interested in a branded self-study platform with reading, listening, writing and speaking practice, progress tracking and study plans.\\n\\nCould you build this around our existing course structure rather than giving us an off-the-shelf LMS?\\n\\nThanks,\\nElena',
+  need:'Digital learning product',urgency:'Medium',value:'$12K–$18K',sentiment:'Very positive',score:84,scoreLabel:'High-fit product opportunity',
+  why:'Defined content, clear audience pain and strong alignment with custom product capability.',
+  research:'Verba Institute is a fictional language-training organisation with instructor-led programmes and proprietary teaching materials. The request is for productisation of existing IP rather than a generic LMS implementation.',
+  recommendation:'Show a branded learning-platform prototype and focus discovery on curriculum structure, content ownership, assessment logic, teacher/admin workflows and the desired student progression model.',
+  draft:'Hi Elena,\\n\\nYes — and I agree that an off-the-shelf LMS is probably not the right starting point if the goal is to preserve your own course structure and methodology.\\n\\nWe would design the self-study experience around your curriculum, then map your exercises, recordings and assessment logic into a branded product with structured practice, progress tracking and study planning. The platform can complement your live teaching rather than trying to replace it.\\n\\nI can show you a working language-learning demo and then discuss how we would adapt the architecture to Verba Institute. Would you be open to a brief call next week?\\n\\nBest,\\nMiltu Studios'},
+ {id:4,initials:'JW',name:'James Walker',company:'FieldOps Software',role:'VP Growth',time:'1h',
+  subject:'Can you streamline our demo-request process?',
+  message:'Hi,\\n\\nWe are a B2B SaaS company and our demo requests currently go into HubSpot, but reps still manually research the company, decide whether it is ICP and write the first reply. It is manageable now but getting messy as volume grows.\\n\\nI am looking for something that can enrich the lead, flag likely ICP accounts and prepare a response for the rep to approve.\\n\\nNot urgent, but I am collecting options for Q4.\\n\\nJames',
+  need:'Sales workflow',urgency:'Exploratory',value:'$8K–$14K',sentiment:'Neutral-positive',score:73,scoreLabel:'Qualified, lower urgency',
+  why:'Good workflow fit, but buying timing is later and requirements are still exploratory.',
+  research:'FieldOps Software is a fictional B2B SaaS business using HubSpot. The requested system would sit between form submission and rep action, adding enrichment, ICP classification, response drafting and clear human approval.',
+  recommendation:'Keep warm rather than push for immediate discovery. Send a concise architecture example and offer a Q4 planning conversation, then schedule a follow-up closer to the stated buying window.',
+  draft:'Hi James,\\n\\nThis is a good fit for an AI-assisted workflow because HubSpot can remain the system of record while the research and first-pass qualification happen around it.\\n\\nA typical flow would enrich the company after a demo request, compare the account against your ICP logic, summarise the rationale, prepare a contextual first reply and leave the rep with a simple approve/edit step.\\n\\nSince you are planning for Q4 rather than implementing immediately, I can send over a simple architecture example now and reconnect closer to your planning window.\\n\\nBest,\\nMiltu Studios'},
+ {id:5,initials:'SK',name:'Sara Kim',company:'Halcyon Legal',role:'Operations Manager',time:'2h',
+  subject:'Automating new client document intake',
+  message:'Hello,\\n\\nWe are trying to reduce the administrative work involved when new corporate clients send us onboarding documents. At present someone checks each email, identifies which documents are included, renames files and updates a spreadsheet.\\n\\nCan an AI workflow classify the documents and prepare the matter record while still requiring staff confirmation before anything is finalised?\\n\\nSara',
+  need:'Document operations',urgency:'Medium',value:'$6K–$11K',sentiment:'Positive',score:69,scoreLabel:'Promising workflow fit',
+  why:'Concrete manual process and clear human-review requirement; needs security and integration discovery.',
+  research:'Halcyon Legal is a fictional law firm. The described process involves email intake, document classification, structured matter data and human validation, making governance and access controls central to any production design.',
+  recommendation:'Schedule a technical discovery focused on document types, confidentiality, storage, permissions and the existing matter-management stack before proposing automation architecture.',
+  draft:'Hi Sara,\\n\\nYes. The safest design would keep staff confirmation as a required step rather than allowing the workflow to finalise matter data autonomously.\\n\\nThe system could monitor a designated intake channel, identify and classify incoming documents, extract the required matter information, apply a naming convention and prepare a draft matter record for review. Once confirmed by a staff member, the approved data could be written to your existing system.\\n\\nThe key discovery questions are around document sensitivity, storage and your current matter-management setup. I would be happy to map those with you on a short call.\\n\\nBest,\\nMiltu Studios'}
+];
+
+var selected=0,running=false;
+function qs(s){return document.querySelector(s)}
+function qsa(s){return Array.prototype.slice.call(document.querySelectorAll(s))}
+function toast(msg){var t=qs('#toast');t.textContent=msg;t.classList.add('show');setTimeout(function(){t.classList.remove('show')},1800)}
+function switchView(id){
+  qsa('.view').forEach(function(v){v.classList.toggle('active',v.id===id)});
+  qsa('[data-view]').forEach(function(b){b.classList.toggle('active',b.getAttribute('data-view')===id)});
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+qsa('[data-view]').forEach(function(b){b.addEventListener('click',function(){switchView(b.getAttribute('data-view'))})});
+
+function renderLeadList(){
+ var el=qs('#leadList');el.innerHTML='<div class="lead-list-head"><span>New enquiries</span><span>5 unread</span></div>';
+ leads.forEach(function(l,i){
+  var d=document.createElement('div');d.className='lead-card'+(i===selected?' active':'');
+  d.innerHTML='<div class="lead-card-top"><div><h4>'+l.name+'</h4><div class="company">'+l.company+'</div></div><time>'+l.time+'</time></div><p>'+l.message.split('\\n')[2].slice(0,105)+'…</p><div class="lead-meta"><span class="badge">'+l.need+'</span><span class="badge">'+l.urgency+'</span></div>';
+  d.addEventListener('click',function(){if(running)return;selected=i;renderLeadList();renderLead();resetAI()});el.appendChild(d);
+ });
+}
+function renderLead(){
+ var l=leads[selected];qs('#leadName').textContent=l.name;qs('#leadCompany').textContent=l.company+' · '+l.role;
+ qs('#leadSubject').textContent=l.subject;qs('#leadMessage').textContent=l.message;
+}
+function resetAI(){
+ qs('#aiEmpty').style.display='block';qs('#aiContent').classList.remove('show');qs('#runWorkflow').disabled=false;qs('#runWorkflow').textContent='Run workflow';
+ qsa('.step').forEach(function(s,i){s.className='step';s.querySelector('.step-icon').textContent=i+1;s.querySelector('.state').textContent='Waiting'});
+}
+function fillAI(){
+ var l=leads[selected];var facts=[
+  ['Requirement',l.need],['Urgency',l.urgency],['Likely value',l.value],['Sentiment',l.sentiment]
+ ];
+ qs('#facts').innerHTML=facts.map(function(f){return '<div class="fact"><span>'+f[0]+'</span><strong>'+f[1]+'</strong></div>'}).join('');
+ qs('#scoreNum').textContent=l.score;qs('#scoreLabel').textContent=l.scoreLabel;qs('#scoreWhy').textContent=l.why;
+ qs('#scoreRing').style.background='conic-gradient(var(--green) 0 '+l.score+'%,#202839 '+l.score+'% 100%)';
+ qs('#researchCopy').textContent=l.research;qs('#recommendCopy').textContent=l.recommendation;qs('#draftText').value=l.draft;
+}
+function runWorkflow(){
+ if(running)return;running=true;qs('#runWorkflow').disabled=true;qs('#runWorkflow').textContent='Running…';qs('#aiEmpty').innerHTML='<div class="orb"></div><p><span class="spin"></span> &nbsp;Analysing enquiry and orchestrating workflow…</p>';
+ var steps=qsa('.step');var i=0;
+ function next(){
+  if(i>0){steps[i-1].classList.remove('running');steps[i-1].classList.add('done');steps[i-1].querySelector('.step-icon').textContent='✓';steps[i-1].querySelector('.state').textContent='Done'}
+  if(i===steps.length){
+    running=false;qs('#runWorkflow').textContent='Workflow complete';fillAI();qs('#aiEmpty').style.display='none';qs('#aiContent').classList.add('show');toast('Lead analysed and synced');return;
+  }
+  steps[i].classList.add('running');steps[i].querySelector('.step-icon').innerHTML='<span class="spin"></span>';steps[i].querySelector('.state').textContent='Running';i++;setTimeout(next,520);
+ }
+ next();
+}
+qs('#runWorkflow').addEventListener('click',runWorkflow);
+qs('#copyBtn').addEventListener('click',function(){var t=qs('#draftText');if(navigator.clipboard){navigator.clipboard.writeText(t.value)}toast('Draft copied')});
+qs('#approveBtn').addEventListener('click',function(){toast('Response queued for human-approved send');this.textContent='Queued ✓';this.disabled=true});
+qs('#resetBtn').addEventListener('click',function(){selected=0;renderLeadList();renderLead();resetAI();qs('#approveBtn').textContent='Approve & queue';qs('#approveBtn').disabled=false;switchView('overview');toast('Demo reset')});
+renderLeadList();renderLead();resetAI();
+</script>
+</body>
+</html>

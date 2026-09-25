@@ -3,396 +3,542 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Miltu Studios — Digital Products for Education Creators</title>
-<meta name="description" content="Miltu Studios helps education creators turn their expertise into polished digital products they own.">
+<title>Miltu Studios — Digital Products, AI & Automation</title>
+<meta name="description" content="Miltu Studios designs and builds digital products, AI-assisted workflows and custom business systems — from product strategy and architecture to implementation and deployment.">
+<meta name="theme-color" content="#080a0f">
 <style>
 :root{
-  --bg:#0a0b10;
-  --panel:#10131b;
-  --panel2:#141925;
-  --text:#f7f8fb;
-  --muted:#a7afc0;
+  --bg:#080a0f;
+  --bg2:#0b0e15;
+  --panel:#0f131c;
+  --panel2:#131824;
+  --panel3:#171d2a;
+  --text:#f4f6f9;
+  --muted:#9aa4b5;
+  --muted2:#69758a;
   --line:rgba(255,255,255,.09);
-  --accent:#7c82ff;
-  --accent2:#9d7bff;
-  --accent-soft:rgba(124,130,255,.13);
-  --white:#fff;
-  --ink:#0e1017;
+  --line2:rgba(255,255,255,.055);
+  --accent:#8d86ff;
+  --accent2:#b2a8ff;
+  --accent-soft:rgba(141,134,255,.11);
+  --green:#65d79a;
+  --amber:#f0bf66;
+  --max:1220px;
   --radius:22px;
-  --shadow:0 18px 60px rgba(0,0,0,.28);
-  --max:1160px;
+  --shadow:0 28px 90px rgba(0,0,0,.34);
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{
   margin:0;
-  font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  min-height:100%;
   color:var(--text);
   background:
-    radial-gradient(circle at 15% 10%, rgba(124,130,255,.14), transparent 28%),
-    radial-gradient(circle at 85% 0%, rgba(157,123,255,.12), transparent 24%),
-    var(--bg);
+    radial-gradient(circle at 12% -3%,rgba(141,134,255,.12),transparent 25%),
+    radial-gradient(circle at 88% 4%,rgba(102,140,255,.07),transparent 24%),
+    linear-gradient(180deg,#080a0f,#090c12 46%,#080a0f);
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
   line-height:1.55;
+  -webkit-font-smoothing:antialiased;
 }
 a{color:inherit}
-.container{max-width:var(--max);margin:0 auto;padding:0 24px}
+button{font:inherit}
+::selection{background:rgba(141,134,255,.34)}
+.container{width:min(var(--max),calc(100% - 48px));margin:auto}
+.noise{
+  pointer-events:none;position:fixed;inset:0;z-index:100;opacity:.055;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.4'/%3E%3C/svg%3E")
+}
 nav{
-  display:flex;justify-content:space-between;align-items:center;
-  padding:24px 0;position:relative;z-index:5
+  height:76px;display:flex;align-items:center;justify-content:space-between;gap:24px;
+  position:relative;z-index:10
 }
-.brand{display:flex;align-items:center;gap:12px;font-weight:850;letter-spacing:-.3px}
+.brand{display:flex;align-items:center;gap:11px;font-weight:850;letter-spacing:-.35px;text-decoration:none}
 .logo{
-  width:34px;height:34px;border-radius:11px;
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
-  display:grid;place-items:center;font-size:14px;font-weight:900;
-  box-shadow:0 10px 24px rgba(124,130,255,.28)
+  width:34px;height:34px;border-radius:10px;display:grid;place-items:center;font-size:13px;font-weight:900;
+  background:linear-gradient(135deg,var(--accent),#6e68df);
+  box-shadow:0 10px 28px rgba(141,134,255,.23)
 }
-.navlinks{display:flex;gap:24px;align-items:center}
-.navlinks a{text-decoration:none;color:var(--muted);font-size:14px}
+.navlinks{display:flex;align-items:center;gap:26px}
+.navlinks a{font-size:13px;text-decoration:none;color:var(--muted);transition:.18s}
+.navlinks a:hover{color:#fff}
 .navlinks .navcta{
-  color:var(--text);padding:9px 13px;border:1px solid var(--line);
-  border-radius:10px;background:rgba(255,255,255,.03)
+  color:#0a0c11;background:#f4f6f9;border:1px solid #f4f6f9;
+  padding:9px 13px;border-radius:10px;font-weight:800
 }
 .hero{
-  padding:86px 0 76px;
-  display:grid;grid-template-columns:1.06fr .94fr;gap:54px;align-items:center
+  min-height:690px;padding:92px 0 96px;display:grid;grid-template-columns:1.03fr .97fr;gap:64px;align-items:center
 }
 .eyebrow{
-  display:inline-flex;align-items:center;gap:8px;
-  color:#c9ccff;background:var(--accent-soft);border:1px solid rgba(124,130,255,.24);
-  border-radius:999px;padding:7px 11px;font-size:12px;font-weight:800;
-  text-transform:uppercase;letter-spacing:.8px
+  display:inline-flex;align-items:center;gap:9px;padding:7px 11px;border-radius:999px;
+  border:1px solid rgba(141,134,255,.22);background:var(--accent-soft);color:#c8c4ff;
+  text-transform:uppercase;letter-spacing:.85px;font-size:10px;font-weight:900
 }
-.dot{width:7px;height:7px;border-radius:50%;background:var(--accent)}
+.eyebrow .pulse{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 0 5px rgba(101,215,154,.07)}
 h1{
-  font-size:clamp(48px,6.6vw,82px);line-height:.98;
-  margin:18px 0 24px;letter-spacing:-3.2px;max-width:820px
+  font-size:clamp(50px,6.4vw,82px);line-height:.98;letter-spacing:-3.7px;
+  max-width:820px;margin:19px 0 25px
 }
+.hero p{font-size:18px;line-height:1.65;color:var(--muted);max-width:690px;margin:0 0 30px}
 .gradient-text{
-  background:linear-gradient(90deg,#fff 10%,#aeb3ff 54%,#d0b7ff 100%);
+  background:linear-gradient(92deg,#fff 7%,#c8c5ff 58%,#9e96ff 100%);
   -webkit-background-clip:text;background-clip:text;color:transparent
 }
-.hero p{font-size:20px;color:var(--muted);max-width:700px;margin:0 0 30px}
-.actions{display:flex;gap:12px;flex-wrap:wrap}
+.actions{display:flex;gap:11px;flex-wrap:wrap}
 .btn{
-  display:inline-flex;align-items:center;justify-content:center;
-  padding:13px 17px;border-radius:12px;text-decoration:none;font-weight:800;font-size:14px
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;
+  border-radius:11px;padding:12px 15px;font-size:13px;font-weight:830;border:1px solid var(--line);
+  transition:.2s;cursor:pointer
 }
-.btn.primary{background:#fff;color:#0a0b10}
-.btn.secondary{border:1px solid var(--line);background:rgba(255,255,255,.03)}
-.hero-card{
-  background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.025));
-  border:1px solid var(--line);border-radius:30px;padding:20px;box-shadow:var(--shadow);
-  position:relative;overflow:hidden
-}
-.hero-card:before{
-  content:"";position:absolute;inset:-40% 55% 45% -15%;
-  background:radial-gradient(circle,rgba(124,130,255,.34),transparent 62%);
-}
-.window{
-  position:relative;background:#f8f9fb;color:#12141a;border-radius:20px;padding:18px;
-  min-height:420px;box-shadow:0 14px 45px rgba(0,0,0,.22)
-}
-.window-top{display:flex;gap:7px;margin-bottom:20px}
-.window-top i{width:8px;height:8px;border-radius:50%;background:#d9dbe3;display:block}
-.mock-grid{display:grid;grid-template-columns:120px 1fr;gap:14px}
-.mock-side{background:#eef0f4;border-radius:12px;padding:12px}
-.mock-side div{height:9px;background:#d6dae3;border-radius:999px;margin:9px 0}
-.mock-main{display:grid;gap:12px}
-.mock-head{height:64px;background:linear-gradient(135deg,#181b2b,#323656);border-radius:13px}
-.mock-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.mock-stats div{height:74px;background:white;border:1px solid #e2e5ec;border-radius:12px}
-.mock-row{height:68px;background:white;border:1px solid #e2e5ec;border-radius:12px}
-.trustline{
-  border-top:1px solid var(--line);border-bottom:1px solid var(--line);
-  padding:22px 0;color:var(--muted);font-size:13px
-}
-.trustline .container{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
-.trustline strong{color:var(--text)}
-section{padding:82px 0}
-.section-head{display:flex;justify-content:space-between;gap:24px;align-items:end;margin-bottom:34px}
-.kicker{color:#aeb3ff;text-transform:uppercase;letter-spacing:1px;font-size:12px;font-weight:850}
-h2{font-size:clamp(34px,4vw,50px);line-height:1.06;letter-spacing:-1.8px;margin:9px 0 0}
-.section-copy{color:var(--muted);max-width:520px;margin:0}
-.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-.card{
-  background:linear-gradient(180deg,var(--panel),#0e1118);
-  border:1px solid var(--line);border-radius:var(--radius);padding:24px
-}
-.card .icon{
-  width:42px;height:42px;border-radius:12px;background:var(--accent-soft);
-  color:#c5c8ff;display:grid;place-items:center;font-weight:900;margin-bottom:28px
-}
-.card h3{font-size:19px;margin:0 0 9px}
-.card p{margin:0;color:var(--muted);font-size:14px}
-.work-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-.work{
-  background:linear-gradient(180deg,var(--panel2),#0e1118);
-  border:1px solid var(--line);border-radius:24px;overflow:hidden
-}
-.preview{
-  height:240px;padding:22px;display:flex;align-items:end;
+.btn.primary{background:#f5f6f8;color:#0a0d12;border-color:#f5f6f8}
+.btn.secondary{background:rgba(255,255,255,.025);color:#fff}
+.btn:hover{transform:translateY(-1px)}
+.hero-proof{margin-top:35px;display:flex;gap:20px;flex-wrap:wrap;color:#747f92;font-size:11px}
+.hero-proof span{display:flex;gap:7px;align-items:center}.hero-proof i{width:5px;height:5px;border-radius:50%;background:#4a556b}
+.system-stage{
+  position:relative;min-height:520px;border:1px solid var(--line);border-radius:29px;
   background:
-    radial-gradient(circle at 75% 30%,rgba(124,130,255,.33),transparent 28%),
-    linear-gradient(135deg,#181b2b,#10131b)
+    linear-gradient(180deg,rgba(255,255,255,.047),rgba(255,255,255,.017)),
+    radial-gradient(circle at 70% 5%,rgba(141,134,255,.15),transparent 31%);
+  box-shadow:var(--shadow);overflow:hidden;padding:18px
 }
-.preview.light{background:linear-gradient(135deg,#eceeff,#c8ceff)}
-.preview.warm{background:linear-gradient(135deg,#f1e6da,#dec5aa)}
-.preview.green{background:linear-gradient(135deg,#dbeee7,#add7c7)}
-.browser{
-  width:100%;height:170px;border-radius:15px;background:#fff;box-shadow:0 18px 45px rgba(0,0,0,.18);
-  padding:11px;overflow:hidden
+.system-stage:after{
+  content:"";position:absolute;inset:0;
+  background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+  background-size:32px 32px;mask-image:linear-gradient(to bottom,#000,transparent 86%);pointer-events:none
 }
-.browserbar{height:16px;border-bottom:1px solid #e8eaf0;margin-bottom:10px}
-.fakehero{height:48px;border-radius:9px;background:#181b2b;margin-bottom:8px}
-.fakecols{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.fakecols div{height:68px;border:1px solid #e2e5ec;border-radius:9px}
-.work-body{padding:22px}
-.label{font-size:11px;text-transform:uppercase;letter-spacing:.9px;color:#aeb3ff;font-weight:850}
-.work h3{font-size:22px;margin:6px 0 8px}
-.work p{color:var(--muted);font-size:14px;margin:0 0 17px}
-.work a{text-decoration:none;font-size:13px;font-weight:800}
-.work a:hover{color:#c4c7ff}
-.featured{grid-column:span 2}
-.featured .preview{height:300px}
-.process{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--line);border-radius:24px;overflow:hidden}
-.process-step{padding:25px;min-height:190px;background:rgba(255,255,255,.025);border-right:1px solid var(--line)}
-.process-step:last-child{border-right:0}
-.num{font-size:12px;color:#aeb3ff;font-weight:900;margin-bottom:34px}
-.process-step h3{margin:0 0 8px;font-size:18px}
-.process-step p{margin:0;color:var(--muted);font-size:13px}
-.split{display:grid;grid-template-columns:1fr;gap:20px}
-.quote-card,.model-card{
-  border:1px solid var(--line);border-radius:24px;padding:28px;background:var(--panel)
+.app-window{
+  position:relative;z-index:2;background:#0b0f17;border:1px solid rgba(255,255,255,.1);border-radius:18px;
+  min-height:470px;box-shadow:0 25px 65px rgba(0,0,0,.4);overflow:hidden
 }
-.quote-card h3,.model-card h3{margin-top:0;font-size:23px}
-.quote-card p,.model-card p{color:var(--muted)}
-.bullets{display:grid;gap:11px;margin-top:18px}
-.bullet{display:flex;gap:10px;color:#d3d7e3;font-size:14px}
-.tick{
-  width:20px;height:20px;min-width:20px;border-radius:50%;
-  background:var(--accent-soft);display:grid;place-items:center;color:#bfc3ff;font-size:11px
+.app-top{height:47px;border-bottom:1px solid var(--line);display:flex;align-items:center;padding:0 13px;gap:6px}
+.app-top i{width:7px;height:7px;border-radius:50%;background:#31394a}
+.app-top span{margin-left:auto;color:#69758a;font-size:8px;letter-spacing:.7px;text-transform:uppercase}
+.app-body{display:grid;grid-template-columns:105px 1fr;height:423px}
+.app-side{border-right:1px solid var(--line);padding:13px 9px}
+.app-brand{height:24px;border-radius:7px;background:linear-gradient(90deg,#282e44,#1c2232);margin-bottom:14px}
+.app-nav{height:22px;border-radius:6px;background:rgba(141,134,255,.11);margin:7px 0}
+.app-nav.muted{background:#121827}
+.app-main{padding:16px;overflow:hidden}
+.app-heading{height:12px;width:43%;background:#d8dce6;border-radius:999px;opacity:.93}
+.app-sub{height:7px;width:62%;background:#384154;border-radius:999px;margin-top:8px}
+.app-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:18px}
+.app-metric{height:67px;border:1px solid var(--line);background:#101622;border-radius:10px;padding:9px}
+.app-metric:before{content:"";display:block;width:45%;height:5px;background:#475167;border-radius:999px}
+.app-metric:after{content:"";display:block;width:30%;height:15px;background:#dbe0e8;border-radius:4px;margin-top:13px}
+.app-row{display:grid;grid-template-columns:34px 1fr 45px;gap:9px;align-items:center;border:1px solid var(--line);height:55px;border-radius:10px;margin-top:9px;padding:9px}
+.app-avatar{width:30px;height:30px;border-radius:8px;background:linear-gradient(135deg,#2a3451,#1a2030)}
+.app-lines:before,.app-lines:after{content:"";display:block;height:5px;border-radius:99px;background:#667085}
+.app-lines:before{width:54%}.app-lines:after{width:78%;margin-top:6px;background:#313a4d}
+.app-score{height:18px;border-radius:99px;background:rgba(101,215,154,.1);border:1px solid rgba(101,215,154,.15)}
+.floating-card{
+  position:absolute;z-index:4;border:1px solid rgba(255,255,255,.1);background:rgba(17,23,35,.91);
+  backdrop-filter:blur(14px);box-shadow:0 18px 50px rgba(0,0,0,.35);border-radius:14px;padding:13px
 }
-.cta-band{
-  margin:20px 0 76px;border-radius:28px;padding:48px;
-  background:linear-gradient(135deg,#f8f9ff,#dfe2ff);color:var(--ink);
-  display:flex;justify-content:space-between;gap:30px;align-items:center
+.floating-card.analysis{right:5px;top:97px;width:183px}
+.floating-card.sync{left:-8px;bottom:38px;width:172px}
+.fc-label{text-transform:uppercase;letter-spacing:.7px;color:#707c91;font-size:8px;font-weight:900}
+.fc-title{font-size:11px;font-weight:850;margin:5px 0 7px}
+.fc-row{display:flex;justify-content:space-between;gap:8px;color:#909bad;font-size:8px;padding:4px 0;border-top:1px solid var(--line2)}
+.fc-row strong{color:#d7dce6}.ok{color:var(--green)!important}
+.capability-bar{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:rgba(255,255,255,.01)}
+.capability-grid{display:grid;grid-template-columns:repeat(5,1fr)}
+.cap-mini{padding:20px 18px;border-right:1px solid var(--line)}.cap-mini:last-child{border-right:0}
+.cap-mini strong{display:block;font-size:10px;letter-spacing:.9px;text-transform:uppercase;color:#d8dbe3;margin-bottom:5px}
+.cap-mini span{display:block;color:#788398;font-size:10px;line-height:1.45}
+section{padding:92px 0}
+.section-head{display:flex;align-items:end;justify-content:space-between;gap:30px;margin-bottom:34px}
+.kicker{text-transform:uppercase;letter-spacing:1.05px;color:#aaa5ff;font-size:10px;font-weight:900}
+h2{font-size:clamp(36px,4.5vw,55px);line-height:1.03;letter-spacing:-2px;margin:8px 0 0}
+.section-copy{max-width:520px;color:var(--muted);font-size:14px;margin:0;line-height:1.65}
+.work-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:17px}
+.work-card{
+  border:1px solid var(--line);background:linear-gradient(180deg,var(--panel),#0b0f16);
+  border-radius:var(--radius);overflow:hidden;min-height:100%;transition:.25s
 }
-.cta-band h2{margin:0 0 10px;font-size:42px}
-.cta-band p{margin:0;color:#53596d;max-width:650px}
-.cta-band .btn{background:var(--ink);color:#fff;white-space:nowrap}
-footer{border-top:1px solid var(--line);padding:28px 0 44px;color:var(--muted);font-size:13px}
-footer .container{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap}
-@media(max-width:900px){
-  .navlinks a:not(.navcta){display:none}
-  .hero,.split{grid-template-columns:1fr}
-  .hero{padding-top:54px}
-  .cards,.process{grid-template-columns:1fr}
-  .process-step{border-right:0;border-bottom:1px solid var(--line)}
-  .process-step:last-child{border-bottom:0}
-  .work-grid{grid-template-columns:1fr}
-  .featured{grid-column:span 1}
-  .section-head{display:block}
-  .section-copy{margin-top:14px}
-  .cta-band{display:block;padding:32px}
-  .cta-band .btn{margin-top:22px}
-  .mock-grid{grid-template-columns:90px 1fr}
+.work-card:hover{transform:translateY(-3px);border-color:rgba(255,255,255,.14)}
+.work-card.flagship{grid-row:span 2}
+.work-preview{height:260px;border-bottom:1px solid var(--line);position:relative;overflow:hidden;padding:22px}
+.flagship .work-preview{height:390px}
+.preview-ai{
+  background:
+    radial-gradient(circle at 77% 21%,rgba(141,134,255,.27),transparent 29%),
+    linear-gradient(135deg,#111621,#090d14)
+}
+.preview-light{background:linear-gradient(135deg,#dfe3ff,#aeb7ff)}
+.preview-warm{background:linear-gradient(135deg,#d9eee7,#94cbbb)}
+.mini-dashboard{
+  height:100%;border:1px solid rgba(255,255,255,.12);border-radius:15px;background:#0b1018;
+  box-shadow:0 24px 55px rgba(0,0,0,.35);padding:12px
+}
+.md-top{height:20px;border-bottom:1px solid var(--line);margin-bottom:12px}
+.md-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}.md-metrics div{height:53px;border-radius:8px;border:1px solid var(--line);background:#111827}
+.md-layout{display:grid;grid-template-columns:1.1fr .9fr;gap:7px;margin-top:7px;height:calc(100% - 92px)}
+.md-list,.md-ai{border:1px solid var(--line);border-radius:8px;background:#0e141e;padding:8px}
+.md-list i{display:block;height:31px;border-bottom:1px solid var(--line);position:relative}
+.md-list i:before{content:"";position:absolute;width:60%;height:5px;left:2px;top:9px;background:#485368;border-radius:99px}
+.md-list i:after{content:"";position:absolute;width:28px;height:9px;right:2px;top:7px;background:rgba(101,215,154,.13);border-radius:99px}
+.md-ai:before{content:"AI ANALYSIS";color:#8e98aa;font-size:6px;letter-spacing:.8px}
+.md-ai div{height:29px;margin-top:7px;border:1px solid var(--line);border-radius:6px;background:#131a27}
+.browser-shot{height:100%;border-radius:15px;background:#fff;box-shadow:0 22px 55px rgba(0,0,0,.22);overflow:hidden;padding:12px}
+.browser-bar{height:17px;border-bottom:1px solid #e6e9ef;margin-bottom:10px}
+.browser-hero{height:66px;border-radius:9px;background:#181d2e;margin-bottom:8px}
+.browser-cols{display:grid;grid-template-columns:1fr 1fr;gap:8px}.browser-cols div{height:90px;border:1px solid #e5e8ef;border-radius:9px}
+.work-body{padding:23px}
+.work-label{font-size:9px;text-transform:uppercase;letter-spacing:.9px;font-weight:900;color:#9e99ff}
+.work-card h3{font-size:24px;letter-spacing:-.55px;margin:7px 0 10px}
+.work-card p{font-size:12px;color:var(--muted);line-height:1.6;margin:0 0 18px}
+.case-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px;border-top:1px solid var(--line);padding-top:15px;margin-top:2px}
+.case-block span{display:block;font-size:8px;color:#68758b;text-transform:uppercase;letter-spacing:.7px;font-weight:900;margin-bottom:4px}
+.case-block strong{display:block;font-size:10px;line-height:1.45;color:#cfd5e0}
+.tags{display:flex;gap:6px;flex-wrap:wrap;margin:15px 0}.tag{border:1px solid var(--line);border-radius:999px;padding:5px 8px;font-size:8px;color:#aab3c5;background:rgba(255,255,255,.018)}
+.work-link{display:inline-flex;gap:7px;align-items:center;text-decoration:none;font-size:11px;font-weight:850;color:#eef0f4}
+.work-link:hover{color:#bebaff}
+.capability-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.cap-card{border:1px solid var(--line);border-radius:20px;background:var(--panel);padding:25px;min-height:360px;position:relative;overflow:hidden}
+.cap-card:after{content:"";position:absolute;width:180px;height:180px;border-radius:50%;right:-90px;top:-95px;background:rgba(141,134,255,.05)}
+.cap-num{font-size:10px;color:#aaa5ff;font-weight:900}.cap-card h3{font-size:22px;letter-spacing:-.45px;margin:29px 0 7px}
+.cap-card .lead{font-size:13px;font-weight:750;color:#d7dce6;margin:0 0 10px}.cap-card p{font-size:11px;color:var(--muted);line-height:1.65;margin:0}
+.cap-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:23px}.cap-tags span{font-size:8px;color:#98a4b8;border:1px solid var(--line);padding:5px 7px;border-radius:7px}
+.dual-system{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
+.system-panel{border:1px solid var(--line);border-radius:20px;background:linear-gradient(180deg,var(--panel2),var(--panel));padding:24px}
+.system-panel h3{font-size:18px;margin:0 0 7px}.system-panel p{color:var(--muted);font-size:11px;margin:0 0 20px}
+.flow{display:flex;gap:6px;align-items:center;flex-wrap:wrap}.node{border:1px solid var(--line);background:#0d121b;border-radius:9px;padding:8px 9px;font-size:8px;color:#b2bbcb}
+.arrow{font-size:10px;color:#4e5a70}
+.live-section{
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  background:linear-gradient(180deg,rgba(141,134,255,.028),rgba(255,255,255,.008))
+}
+.demo-shell{display:grid;grid-template-columns:.78fr 1.22fr;gap:42px;align-items:center}
+.demo-copy h2{max-width:530px}.demo-copy p{color:var(--muted);font-size:13px;line-height:1.65;max-width:510px}
+.demo-note{font-size:9px!important;color:#68758a!important;margin-top:17px!important}
+.demo-card{
+  border:1px solid var(--line);border-radius:22px;background:#0b1018;box-shadow:var(--shadow);overflow:hidden
+}
+.demo-top{height:49px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 15px}
+.demo-top strong{font-size:11px}.demo-top span{font-size:8px;color:#7e899d;text-transform:uppercase;letter-spacing:.7px}
+.demo-body{display:grid;grid-template-columns:.9fr 1.1fr;min-height:395px}
+.demo-message{padding:17px;border-right:1px solid var(--line)}
+.demo-message .from{font-size:8px;color:#788398;text-transform:uppercase;letter-spacing:.8px;font-weight:900}
+.demo-message h4{font-size:13px;margin:6px 0 2px}.demo-message .company{font-size:9px;color:#7d899e}
+.demo-message blockquote{font-size:10px;color:#aeb7c8;line-height:1.6;margin:16px 0;padding:12px;border-left:2px solid #343f55;background:#0e141e}
+.demo-run{width:100%;border:0;background:#f2f4f7;color:#0b0d12;border-radius:9px;padding:10px;font-weight:850;font-size:10px;cursor:pointer}
+.demo-run:disabled{opacity:.7}
+.demo-steps{display:grid;gap:6px;margin-top:12px}.demo-step{display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:8px;padding:7px 8px;font-size:8px;color:#748096}
+.demo-step i{width:16px;height:16px;border-radius:5px;background:#161e2c;display:grid;place-items:center;font-style:normal;font-size:7px}
+.demo-step.running{color:#c7c3ff;border-color:rgba(141,134,255,.26);background:rgba(141,134,255,.055)}
+.demo-step.done{color:#b7c2d2}.demo-step.done i{background:rgba(101,215,154,.1);color:var(--green)}
+.demo-output{padding:17px;position:relative}
+.demo-empty{height:100%;display:grid;place-items:center;text-align:center;color:#6f7a8e;font-size:9px;line-height:1.55}
+.orb{width:47px;height:47px;border-radius:50%;margin:0 auto 11px;background:radial-gradient(circle at 35% 30%,#d0ccff,#746ce2 47%,#20253a 72%);box-shadow:0 0 35px rgba(141,134,255,.22)}
+.demo-result{display:none}.demo-result.show{display:block}
+.result-label{font-size:8px;text-transform:uppercase;letter-spacing:.7px;color:#6f7c91;font-weight:900;margin-bottom:8px}
+.result-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px}.result-box{border:1px solid var(--line);border-radius:8px;padding:8px;background:#0f1621}
+.result-box span{font-size:7px;color:#69758a;text-transform:uppercase}.result-box strong{display:block;font-size:9px;margin-top:3px}
+.result-score{display:flex;align-items:center;gap:11px;margin-top:13px;border-top:1px solid var(--line);padding-top:13px}
+.score-disc{width:45px;height:45px;border-radius:50%;display:grid;place-items:center;font-size:11px;font-weight:900;background:conic-gradient(var(--green) 0 92%,#222b3c 92% 100%);position:relative}
+.score-disc:after{content:"";position:absolute;inset:5px;border-radius:50%;background:#0b1018}.score-disc b{position:relative;z-index:2}
+.result-score div strong{font-size:10px}.result-score div p{font-size:8px;color:#7d899e;margin:2px 0 0}
+.recommendation{margin-top:13px;border-left:2px solid var(--accent);padding:8px 0 8px 10px;font-size:9px;color:#b4bdcd;line-height:1.5}
+.problem-grid{display:grid;grid-template-columns:repeat(5,1fr);border:1px solid var(--line);border-radius:20px;overflow:hidden}
+.problem{padding:21px 18px;min-height:205px;border-right:1px solid var(--line);background:rgba(255,255,255,.018)}
+.problem:last-child{border-right:0}.problem q{display:block;font-size:12px;line-height:1.5;color:#d9dde6;font-weight:720}
+.problem .solution{margin-top:28px;border-top:1px solid var(--line);padding-top:12px;font-size:9px;color:#9e99ff;line-height:1.5}
+.problem .solution:before{content:"→ ";color:#59647a}
+.process{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);border-radius:20px;overflow:hidden}
+.process-step{padding:24px;background:rgba(255,255,255,.015);border-right:1px solid var(--line);min-height:250px}
+.process-step:last-child{border-right:0}.process-num{font-size:9px;color:#aaa5ff;font-weight:900;letter-spacing:.7px}
+.process-step h3{font-size:18px;margin:31px 0 4px}.process-step strong{display:block;font-size:11px;color:#d6dbe4;margin-bottom:8px}
+.process-step p{font-size:10px;color:var(--muted);line-height:1.65;margin:0}
+.tech-shell{display:grid;grid-template-columns:.78fr 1.22fr;gap:50px;align-items:start}
+.tech-copy p{color:var(--muted);font-size:12px;line-height:1.65}.tech-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.tech{border:1px solid var(--line);border-radius:11px;padding:12px;background:rgba(255,255,255,.018);font-size:10px;color:#c2c9d5;min-height:46px;display:flex;align-items:center}
+.tech small{color:#68758a;margin-left:auto}
+.tech-foot{grid-column:1/-1;font-size:9px;color:#657187;margin-top:6px;line-height:1.55}
+.cta{
+  margin:18px 0 90px;border:1px solid rgba(255,255,255,.14);border-radius:28px;padding:54px;
+  background:
+    radial-gradient(circle at 80% 20%,rgba(141,134,255,.22),transparent 26%),
+    linear-gradient(135deg,#141927,#0d111a);
+  display:flex;align-items:center;justify-content:space-between;gap:40px;overflow:hidden;position:relative
+}
+.cta h2{font-size:clamp(34px,4vw,51px);max-width:820px;margin:0 0 13px}.cta p{font-size:13px;color:#9aa5b7;max-width:650px;margin:0}
+.cta .btn{white-space:nowrap;background:#f3f5f7;color:#0a0d12;border-color:#f3f5f7}
+footer{border-top:1px solid var(--line);padding:27px 0 43px;color:#6f7b90;font-size:10px}
+.footer-inner{display:flex;justify-content:space-between;gap:22px;flex-wrap:wrap}.footer-inner strong{color:#e8ebf0}
+.reveal{opacity:0;transform:translateY(13px);transition:opacity .6s ease,transform .6s ease}.reveal.visible{opacity:1;transform:none}
+@media(max-width:1020px){
+  .hero{grid-template-columns:1fr;gap:45px;padding-top:65px}.system-stage{max-width:760px}.capability-grid{grid-template-columns:repeat(3,1fr)}
+  .cap-mini:nth-child(3){border-right:0}.cap-mini:nth-child(n+4){border-top:1px solid var(--line)}
+  .work-grid{grid-template-columns:1fr 1fr}.work-card.flagship{grid-column:1/-1;grid-row:auto}
+  .capability-cards{grid-template-columns:1fr}.cap-card{min-height:auto}
+  .problem-grid{grid-template-columns:1fr 1fr}.problem{border-bottom:1px solid var(--line)}.problem:nth-child(even){border-right:0}.problem:last-child{grid-column:1/-1;border-bottom:0}
+  .process{grid-template-columns:1fr 1fr}.process-step:nth-child(2){border-right:0}.process-step:nth-child(-n+2){border-bottom:1px solid var(--line)}
+}
+@media(max-width:760px){
+  .container{width:min(100% - 30px,var(--max))}.navlinks a:not(.navcta){display:none}.hero{min-height:auto;padding:54px 0 67px}
+  h1{letter-spacing:-2.5px}.hero p{font-size:16px}.system-stage{min-height:430px;padding:10px}.app-window{min-height:408px}.app-body{height:361px;grid-template-columns:76px 1fr}
+  .app-main{padding:11px}.floating-card.analysis{width:155px;right:-5px}.floating-card.sync{left:-5px}
+  .capability-grid{grid-template-columns:1fr 1fr}.cap-mini:nth-child(odd){border-right:1px solid var(--line)}.cap-mini:nth-child(even){border-right:0}.cap-mini{border-top:1px solid var(--line)}
+  section{padding:72px 0}.section-head{display:block}.section-copy{margin-top:13px}.work-grid{grid-template-columns:1fr}.flagship .work-preview,.work-preview{height:285px}
+  .dual-system,.demo-shell,.tech-shell{grid-template-columns:1fr}.demo-body{grid-template-columns:1fr}.demo-message{border-right:0;border-bottom:1px solid var(--line)}
+  .problem-grid{grid-template-columns:1fr}.problem,.problem:nth-child(even){border-right:0}.problem:last-child{grid-column:auto}.process{grid-template-columns:1fr}
+  .process-step,.process-step:nth-child(2){border-right:0;border-bottom:1px solid var(--line)}.process-step:last-child{border-bottom:0}.tech-grid{grid-template-columns:1fr 1fr}
+  .cta{display:block;padding:35px 26px}.cta .btn{margin-top:24px}.case-grid{grid-template-columns:1fr}
 }
 </style>
 </head>
 <body>
+<div class="noise"></div>
+
 <div class="container">
   <nav>
-    <div class="brand"><div class="logo">M</div>Miltu Studios</div>
+    <a class="brand" href="#"><span class="logo">M</span><span>Miltu Studios</span></a>
     <div class="navlinks">
       <a href="#work">Work</a>
-      <a href="#services">What we build</a>
+      <a href="#capabilities">Capabilities</a>
       <a href="#process">Process</a>
-      <a class="navcta" href="#contact">Start a conversation</a>
+      <a href="#technology">Technology</a>
+      <a class="navcta" href="#contact">Start a project</a>
     </div>
   </nav>
 
   <header class="hero">
     <div>
-      <div class="eyebrow"><span class="dot"></span> Digital product studio for education creators</div>
-      <h1>Turn expertise into <span class="gradient-text">products people can use.</span></h1>
-      <p>Miltu Studios helps education creators transform what they already teach into polished, self-serve digital products — designed around real audience problems and built to create an owned revenue stream.</p>
+      <div class="eyebrow"><span class="pulse"></span> Digital product & AI systems studio</div>
+      <h1>We build digital products and <span class="gradient-text">AI systems that create leverage.</span></h1>
+      <p>We design and develop intelligent products, automated workflows and custom digital systems for businesses, creators and teams. From idea and strategy to interface, automation and deployment.</p>
       <div class="actions">
-        <a class="btn primary" href="#work">View selected work</a>
-        <a class="btn secondary" href="#process">How we work</a>
+        <a class="btn primary" href="#work">Explore our work <span>↗</span></a>
+        <a class="btn secondary" href="#contact">Start a project</a>
+      </div>
+      <div class="hero-proof">
+        <span><i></i>Product thinking</span>
+        <span><i></i>AI-assisted workflows</span>
+        <span><i></i>Custom software</span>
+        <span><i></i>End-to-end execution</span>
       </div>
     </div>
-    <div class="hero-card">
-      <div class="window">
-        <div class="window-top"><i></i><i></i><i></i></div>
-        <div class="mock-grid">
-          <div class="mock-side">
-            <div style="width:78%"></div><div style="width:62%"></div><div style="width:86%"></div><div style="width:55%"></div><div style="width:73%"></div>
+
+    <div class="system-stage" aria-label="Product and automation interface preview">
+      <div class="app-window">
+        <div class="app-top"><i></i><i></i><i></i><span>AI Sales Operations System</span></div>
+        <div class="app-body">
+          <div class="app-side">
+            <div class="app-brand"></div>
+            <div class="app-nav"></div><div class="app-nav muted"></div><div class="app-nav muted"></div><div class="app-nav muted"></div>
           </div>
-          <div class="mock-main">
-            <div class="mock-head"></div>
-            <div class="mock-stats"><div></div><div></div><div></div></div>
-            <div class="mock-row"></div><div class="mock-row"></div>
+          <div class="app-main">
+            <div class="app-heading"></div><div class="app-sub"></div>
+            <div class="app-metrics"><div class="app-metric"></div><div class="app-metric"></div><div class="app-metric"></div></div>
+            <div class="app-row"><div class="app-avatar"></div><div class="app-lines"></div><div class="app-score"></div></div>
+            <div class="app-row"><div class="app-avatar"></div><div class="app-lines"></div><div class="app-score"></div></div>
+            <div class="app-row"><div class="app-avatar"></div><div class="app-lines"></div><div class="app-score"></div></div>
           </div>
         </div>
+      </div>
+      <div class="floating-card analysis">
+        <div class="fc-label">AI Analysis</div><div class="fc-title">High-intent opportunity</div>
+        <div class="fc-row"><span>Intent score</span><strong>92 / 100</strong></div>
+        <div class="fc-row"><span>Urgency</span><strong>High</strong></div>
+        <div class="fc-row"><span>Next step</span><strong class="ok">Discovery call</strong></div>
+      </div>
+      <div class="floating-card sync">
+        <div class="fc-label">Workflow</div><div class="fc-title">System actions</div>
+        <div class="fc-row"><span>CRM record</span><strong class="ok">✓ Synced</strong></div>
+        <div class="fc-row"><span>Response</span><strong class="ok">✓ Drafted</strong></div>
+        <div class="fc-row"><span>Follow-up</span><strong class="ok">✓ Scheduled</strong></div>
       </div>
     </div>
   </header>
 </div>
 
-<div class="trustline">
-  <div class="container">
-    <span><strong>Strategy</strong> — finding the right product opportunity</span>
-    <span><strong>Product design</strong> — turning expertise into a usable system</span>
-    <span><strong>Build</strong> — interactive products, planners & operating systems</span>
-    <span><strong>Launch support</strong> — positioning, packaging & offer structure</span>
+<div class="capability-bar">
+  <div class="container capability-grid">
+    <div class="cap-mini"><strong>Strategy</strong><span>Product strategy · Workflow analysis · UX architecture</span></div>
+    <div class="cap-mini"><strong>Product</strong><span>Web apps · Platforms · Dashboards · Digital products</span></div>
+    <div class="cap-mini"><strong>Intelligence</strong><span>LLMs · Agents · Research · AI workflows</span></div>
+    <div class="cap-mini"><strong>Automation</strong><span>APIs · CRM · Lead workflows · Operations</span></div>
+    <div class="cap-mini"><strong>Engineering</strong><span>Frontend · Backend · Databases · Integrations</span></div>
   </div>
 </div>
 
-<section id="services">
-  <div class="container">
-    <div class="section-head">
-      <div><div class="kicker">What we build</div><h2>Not another generic PDF.</h2></div>
-      <p class="section-copy">We focus on products that help an audience implement what the creator already teaches — with structure, tools, workflows and a clear outcome.</p>
-    </div>
-    <div class="cards">
-      <div class="card">
-        <div class="icon">01</div>
-        <h3>Interactive learning products</h3>
-        <p>Guided programs, learning systems and implementation experiences that move users from consuming content to applying it.</p>
-      </div>
-      <div class="card">
-        <div class="icon">02</div>
-        <h3>Operating systems & dashboards</h3>
-        <p>Practical digital systems that organize a process, track progress and give users a repeatable way to get the outcome they want.</p>
-      </div>
-      <div class="card">
-        <div class="icon">03</div>
-        <h3>Toolkits & self-serve products</h3>
-        <p>Templates, frameworks, scripts, checklists and workflows packaged into lower-friction products that can sit alongside coaching or courses.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
 <section id="work">
   <div class="container">
-    <div class="section-head">
+    <div class="section-head reveal">
       <div><div class="kicker">Selected work</div><h2>Product thinking, made tangible.</h2></div>
-      <p class="section-copy">A selection of interactive products and system demos showing how strategy, software and automation can become useful, commercially valuable experiences.</p>
+      <p class="section-copy">We prefer to show systems, not just describe services. These projects demonstrate how we turn workflows, expertise and user problems into functional digital products.</p>
     </div>
 
     <div class="work-grid">
-      <article class="work featured">
-        <div class="preview" style="background:radial-gradient(circle at 74% 25%,rgba(124,130,255,.42),transparent 30%),linear-gradient(135deg,#111624,#090c13)">
-          <div class="browser" style="background:#0c1018;border:1px solid rgba(255,255,255,.09)">
-            <div class="browserbar" style="border-color:rgba(255,255,255,.09)"></div>
-            <div class="fakehero" style="background:linear-gradient(135deg,#202944,#353269)"></div>
-            <div class="fakecols"><div style="background:#111827;border-color:rgba(255,255,255,.08)"></div><div style="background:#111827;border-color:rgba(255,255,255,.08)"></div></div>
+      <article class="work-card flagship reveal">
+        <div class="work-preview preview-ai">
+          <div class="mini-dashboard">
+            <div class="md-top"></div>
+            <div class="md-metrics"><div></div><div></div><div></div></div>
+            <div class="md-layout">
+              <div class="md-list"><i></i><i></i><i></i><i></i><i></i></div>
+              <div class="md-ai"><div></div><div></div><div></div><div></div></div>
+            </div>
           </div>
         </div>
         <div class="work-body">
-          <div class="label">AI sales automation · Interactive system demo</div>
+          <div class="work-label">AI automation · Interactive system demo</div>
           <h3>AI Sales Operations System</h3>
-          <p>An interactive simulation of an AI-assisted sales workflow: inbound enquiry analysis, company research, opportunity scoring, personalised response drafting, CRM sync, follow-up orchestration and performance analytics.</p>
-          <a href="ai-sales-operations-system.html" target="_blank" rel="noopener">Launch interactive demo →</a>
+          <p>An interactive demonstration of how inbound sales work can move through one coordinated AI-assisted system, from enquiry analysis and prospect research to qualification, response drafting, CRM updates and follow-up.</p>
+          <div class="case-grid">
+            <div class="case-block"><span>Challenge</span><strong>Manual lead research, qualification and follow-up slow down response and scatter context across tools.</strong></div>
+            <div class="case-block"><span>System</span><strong>Intake → Research → Qualification → Response → CRM → Follow-up</strong></div>
+          </div>
+          <div class="tags"><span class="tag">Lead Intelligence</span><span class="tag">AI Research</span><span class="tag">CRM Workflow</span><span class="tag">Human Approval</span><span class="tag">Analytics</span></div>
+          <a class="work-link" href="ai-sales-operations-system.html" target="_blank" rel="noopener">Launch interactive demo <span>↗</span></a>
         </div>
       </article>
 
-      <article class="work featured">
-        <div class="preview">
-          <div class="browser">
-            <div class="browserbar"></div>
-            <div class="fakehero"></div>
-            <div class="fakecols"><div></div><div></div></div>
+      <article class="work-card reveal">
+        <div class="work-preview preview-light">
+          <div class="browser-shot">
+            <div class="browser-bar"></div>
+            <div class="browser-hero" style="background:#7f86ff"></div>
+            <div class="browser-cols"><div></div><div></div></div>
           </div>
         </div>
         <div class="work-body">
-          <div class="label">Interactive job-search system</div>
+          <div class="work-label">Interactive education platform</div>
+          <h3>DELE Learning Platform</h3>
+          <p>A structured self-study environment for exam preparation, combining curriculum, practice, progression and learner tools in one branded experience.</p>
+          <div class="case-grid">
+            <div class="case-block"><span>Challenge</span><strong>Turn fragmented exam-prep material into a coherent self-study product.</strong></div>
+            <div class="case-block"><span>System</span><strong>Practice · Listening · Vocabulary · Progress · Study planning</strong></div>
+          </div>
+          <div class="tags"><span class="tag">Learning UX</span><span class="tag">Progress Tracking</span><span class="tag">Content System</span></div>
+          <a class="work-link" href="https://miltustudios-code.github.io/espanol-demo/" target="_blank" rel="noopener">Explore DELE A2 demo <span>↗</span></a>
+        </div>
+      </article>
+
+      <article class="work-card reveal">
+        <div class="work-preview preview-warm">
+          <div class="browser-shot">
+            <div class="browser-bar"></div>
+            <div class="browser-hero" style="background:#18202d"></div>
+            <div class="browser-cols"><div></div><div></div></div>
+          </div>
+        </div>
+        <div class="work-body">
+          <div class="work-label">Career workflow platform</div>
           <h3>Resume-to-Interview OS</h3>
-          <p>A product concept that turns free resume and AI tools into a structured workflow: build a factual career vault, decode job descriptions, generate tailored resume briefs, track versions, manage applications and measure interview conversion.</p>
-          <a href="resume-to-interview-os.html" target="_blank" rel="noopener">View live demo →</a>
-        </div>
-      </article>
-
-      <article class="work">
-        <div class="preview light">
-          <div class="browser">
-            <div class="browserbar"></div>
-            <div class="fakehero" style="background:#8d91ff"></div>
-            <div class="fakecols"><div></div><div></div></div>
+          <p>A browser-based system that turns disconnected job-search tools into one measurable workflow from career evidence and job analysis to applications and performance.</p>
+          <div class="case-grid">
+            <div class="case-block"><span>Challenge</span><strong>Free AI and resume tools create outputs, but not a coherent operating process.</strong></div>
+            <div class="case-block"><span>System</span><strong>Career Vault → Job Analysis → Resume Brief → Applications → Performance</strong></div>
           </div>
-        </div>
-        <div class="work-body">
-          <div class="label">Interactive learning experience</div>
-          <h3>Español A2</h3>
-          <p>A structured language-learning product designed around guided lessons, progression and practical application.</p>
-          <a href="https://ksm291200.github.io/spanishlearning/" target="_blank" rel="noopener">View Spanish learning site →</a><br>
-          <a href="https://miltustudios-code.github.io/espanol-demo/" target="_blank" rel="noopener">View DELE A2 demo →</a>
-        </div>
-      </article>
-
-      <article class="work">
-        <div class="preview warm">
-          <div class="browser">
-            <div class="browserbar"></div>
-            <div class="fakehero" style="background:#8a6849"></div>
-            <div class="fakecols"><div></div><div></div></div>
-          </div>
-        </div>
-        <div class="work-body">
-          <div class="label">Planning dashboard</div>
-          <h3>Nepal Planner</h3>
-          <p>A visual planning experience demonstrating how complex information can be turned into a clear, useful and navigable product.</p>
-          <a href="https://ksm291200.github.io/nepal-planner/" target="_blank" rel="noopener">View live demo →</a>
-        </div>
-      </article>
-
-      <article class="work">
-        <div class="preview green">
-          <div class="browser">
-            <div class="browserbar"></div>
-            <div class="fakehero" style="background:#4f7e6e"></div>
-            <div class="fakecols"><div></div><div></div></div>
-          </div>
-        </div>
-        <div class="work-body">
-          <div class="label">Knowledge & planning system</div>
-          <h3>Second Brain</h3>
-          <p>A structured personal knowledge and planning system showing how recurring-use digital products can organize information, workflows and progress.</p>
-          <a href="https://animated-pudding-427.notion.site/second-brain-the-south-asian-edit-10e2d3c1f508802b8ff6fc34456e0e9b" target="_blank" rel="noopener">View project →</a>
+          <div class="tags"><span class="tag">Workflow Design</span><span class="tag">Dashboard</span><span class="tag">Structured Data</span></div>
+          <a class="work-link" href="resume-to-interview-os.html" target="_blank" rel="noopener">Launch interactive demo <span>↗</span></a>
         </div>
       </article>
     </div>
   </div>
 </section>
 
-<section id="process">
+<section id="capabilities">
   <div class="container">
-    <div class="section-head">
-      <div><div class="kicker">Our process</div><h2>From audience problem to finished product.</h2></div>
-      <p class="section-copy">The goal is not to force a product onto an audience. It is to identify the most natural paid extension of what they already come to the creator for.</p>
+    <div class="section-head reveal">
+      <div><div class="kicker">What we build</div><h2>Three capabilities. One systems mindset.</h2></div>
+      <p class="section-copy">The technology is only useful if it solves the right problem. We combine product thinking, interface design, automation logic and implementation rather than treating them as separate disciplines.</p>
     </div>
-    <div class="process">
-      <div class="process-step">
-        <div class="num">01 / DISCOVER</div>
-        <h3>Find the opportunity</h3>
-        <p>We study the creator’s content, recurring audience questions, existing monetisation and the products already competing for attention.</p>
+
+    <div class="capability-cards">
+      <article class="cap-card reveal">
+        <div class="cap-num">01 / DIGITAL PRODUCTS</div>
+        <h3>Products people actually use.</h3>
+        <p class="lead">From an idea or body of expertise to a usable digital product.</p>
+        <p>Interactive platforms, web applications, customer portals, dashboards and self-serve products designed around a specific user problem and a clear outcome.</p>
+        <div class="cap-tags"><span>Web Applications</span><span>Interactive Platforms</span><span>Customer Portals</span><span>Learning Products</span><span>Dashboards</span><span>Digital Toolkits</span></div>
+      </article>
+
+      <article class="cap-card reveal">
+        <div class="cap-num">02 / AI & AUTOMATION</div>
+        <h3>Systems that take work off your team.</h3>
+        <p class="lead">Deploy AI inside real workflows, with the right human controls.</p>
+        <p>We identify repetitive, information-heavy work and build AI-assisted systems that research, classify, draft, route, update and escalate more consistently at scale.</p>
+        <div class="cap-tags"><span>AI Agents</span><span>Lead Qualification</span><span>Research Automation</span><span>CRM Workflows</span><span>Document Processing</span><span>Follow-up Automation</span><span>Knowledge Systems</span><span>API Integrations</span></div>
+      </article>
+
+      <article class="cap-card reveal">
+        <div class="cap-num">03 / PRODUCT STRATEGY & SYSTEMS</div>
+        <h3>Before we build, we work out what should exist.</h3>
+        <p class="lead">Architecture before implementation.</p>
+        <p>We map the opportunity, user journey, workflow, product structure, monetisation and technical system so that what gets built is commercially useful, not just technically possible.</p>
+        <div class="cap-tags"><span>Opportunity Mapping</span><span>Workflow Design</span><span>Product Strategy</span><span>Rapid Prototyping</span><span>Monetisation</span><span>UX Architecture</span></div>
+      </article>
+    </div>
+
+    <div class="dual-system">
+      <div class="system-panel reveal">
+        <h3>AI workflow architecture</h3>
+        <p>One example of how a business process can become an orchestrated system.</p>
+        <div class="flow">
+          <span class="node">Website / Email / WhatsApp</span><span class="arrow">→</span><span class="node">AI Intake</span><span class="arrow">→</span><span class="node">Research</span><span class="arrow">→</span><span class="node">Qualification</span><span class="arrow">→</span><span class="node">CRM</span><span class="arrow">→</span><span class="node">Response</span><span class="arrow">→</span><span class="node">Follow-up</span><span class="arrow">→</span><span class="node">Human escalation</span>
+        </div>
       </div>
-      <div class="process-step">
-        <div class="num">02 / DESIGN</div>
-        <h3>Shape the offer</h3>
-        <p>We define the outcome, product format, structure, pricing logic and what makes the paid product meaningfully different from free content.</p>
+      <div class="system-panel reveal">
+        <h3>Digital product architecture</h3>
+        <p>How expertise or a service can become a repeatable product experience.</p>
+        <div class="flow">
+          <span class="node">Expertise</span><span class="arrow">→</span><span class="node">Product Architecture</span><span class="arrow">→</span><span class="node">Interface</span><span class="arrow">→</span><span class="node">User Workflow</span><span class="arrow">→</span><span class="node">Data + Personalisation</span><span class="arrow">→</span><span class="node">Recurring Product</span>
+        </div>
       </div>
-      <div class="process-step">
-        <div class="num">03 / BUILD</div>
-        <h3>Create the product</h3>
-        <p>We turn the creator’s knowledge into a polished system, toolkit, dashboard or interactive experience people can actually use.</p>
+    </div>
+  </div>
+</section>
+
+<section class="live-section">
+  <div class="container demo-shell">
+    <div class="demo-copy reveal">
+      <div class="kicker">Interactive AI demonstration</div>
+      <h2>See the workflow think through a lead.</h2>
+      <p>This small homepage simulation shows the logic behind the full AI Sales Operations System. A production version can be connected to the client’s actual inbox, CRM, forms, APIs and operating rules.</p>
+      <div class="actions">
+        <a class="btn primary" href="ai-sales-operations-system.html" target="_blank" rel="noopener">Open full system <span>↗</span></a>
       </div>
-      <div class="process-step">
-        <div class="num">04 / LAUNCH</div>
-        <h3>Package & improve</h3>
-        <p>We help with positioning, sales-page structure and launch readiness, then refine based on how the audience responds.</p>
+      <p class="demo-note">Sample company and metrics are fictional. The workflow is designed to demonstrate system architecture and interaction.</p>
+    </div>
+
+    <div class="demo-card reveal">
+      <div class="demo-top"><strong>AI Sales Operations System</strong><span>Sample workflow</span></div>
+      <div class="demo-body">
+        <div class="demo-message">
+          <div class="from">Incoming enquiry</div>
+          <h4>Priya Rao</h4><div class="company">Meridian Properties · Director, Sales</div>
+          <blockquote>“We receive 250–300 property enquiries a week. Can the system qualify enquiries, update our CRM and flag the strongest leads for immediate calls?”</blockquote>
+          <button class="demo-run" id="homeDemoRun">Run AI workflow</button>
+          <div class="demo-steps">
+            <div class="demo-step" data-home-step="0"><i>1</i><span>Extract requirements</span></div>
+            <div class="demo-step" data-home-step="1"><i>2</i><span>Research company context</span></div>
+            <div class="demo-step" data-home-step="2"><i>3</i><span>Score intent + fit</span></div>
+            <div class="demo-step" data-home-step="3"><i>4</i><span>Recommend next action</span></div>
+            <div class="demo-step" data-home-step="4"><i>5</i><span>Prepare CRM + follow-up</span></div>
+          </div>
+        </div>
+        <div class="demo-output">
+          <div class="demo-empty" id="homeDemoEmpty"><div><div class="orb"></div>Run the sample workflow to reveal<br>the structured AI output.</div></div>
+          <div class="demo-result" id="homeDemoResult">
+            <div class="result-label">Extracted signals</div>
+            <div class="result-grid">
+              <div class="result-box"><span>Requirement</span><strong>Lead qualification</strong></div>
+              <div class="result-box"><span>Urgency</span><strong>High</strong></div>
+              <div class="result-box"><span>Likely value</span><strong>$18K–$25K</strong></div>
+              <div class="result-box"><span>Sentiment</span><strong>Positive</strong></div>
+            </div>
+            <div class="result-score"><div class="score-disc"><b>92</b></div><div><strong>High-intent opportunity</strong><p>Clear workflow pain + quantified volume + near-term buying signal.</p></div></div>
+            <div class="result-label" style="margin-top:15px">Recommended action</div>
+            <div class="recommendation">Prioritise for discovery. Show a prototype covering intake, project/budget extraction, lead scoring, CRM routing and human escalation for high-value prospects.</div>
+            <div class="result-grid" style="margin-top:13px">
+              <div class="result-box"><span>CRM record</span><strong style="color:var(--green)">✓ Prepared</strong></div>
+              <div class="result-box"><span>Follow-up</span><strong style="color:var(--green)">✓ Scheduled</strong></div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -400,36 +546,110 @@ footer .container{display:flex;justify-content:space-between;gap:18px;flex-wrap:
 
 <section>
   <div class="container">
-    <div class="split">
-      <div class="quote-card">
-        <div class="kicker">A better fit for established creators</div>
-        <h3>Designed to complement existing monetisation.</h3>
-        <p>If a creator already sells coaching, mentorship or a larger program, the right product is often a lower-friction self-serve offer — something useful enough to buy immediately and natural enough to lead into the higher-ticket ecosystem.</p>
-        <div class="bullets">
-          <div class="bullet"><span class="tick">✓</span><span>Built around existing expertise rather than inventing a new niche</span></div>
-          <div class="bullet"><span class="tick">✓</span><span>Designed to solve one clear audience problem</span></div>
-          <div class="bullet"><span class="tick">✓</span><span>Can work as a standalone revenue stream or feeder product</span></div>
-        </div>
-      </div>
-      </div>
+    <div class="section-head reveal">
+      <div><div class="kicker">Problems we solve</div><h2>Some problems don't need another employee. They need a better system.</h2></div>
+      <p class="section-copy">We start with the operational or customer problem, then decide what combination of software, automation and human judgment actually makes sense.</p>
     </div>
-  </section>
+    <div class="problem-grid reveal">
+      <div class="problem"><q>Our team spends hours qualifying incoming leads.</q><div class="solution">AI-assisted lead qualification system</div></div>
+      <div class="problem"><q>We have expertise people want, but no scalable product.</q><div class="solution">Digital product platform</div></div>
+      <div class="problem"><q>Information is scattered across email, spreadsheets and documents.</q><div class="solution">Internal knowledge + workflow system</div></div>
+      <div class="problem"><q>Our team repeats the same research every week.</q><div class="solution">AI research workflow</div></div>
+      <div class="problem"><q>Customers need a dashboard instead of another PDF.</q><div class="solution">Interactive web product</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="process">
+  <div class="container">
+    <div class="section-head reveal">
+      <div><div class="kicker">How we work</div><h2>From ambiguity to a working system.</h2></div>
+      <p class="section-copy">The process is designed to reduce the risk of building the wrong thing. Strategy, architecture, implementation and deployment stay connected from the beginning.</p>
+    </div>
+    <div class="process reveal">
+      <div class="process-step"><div class="process-num">01 / UNDERSTAND</div><h3>Find the real constraint.</h3><strong>Users, workflow, economics, bottlenecks.</strong><p>We analyse how the work happens today, what users need, what already exists and where the actual friction or opportunity lies before proposing technology.</p></div>
+      <div class="process-step"><div class="process-num">02 / ARCHITECT</div><h3>Design the system.</h3><strong>Journey, logic, data, integrations.</strong><p>We map the user experience, information architecture, automation logic, integration points and system boundaries into a clear build plan.</p></div>
+      <div class="process-step"><div class="process-num">03 / BUILD</div><h3>Turn architecture into software.</h3><strong>Interface, automation, intelligence.</strong><p>We develop the product experience, workflows, data structure, AI components and integrations as one coherent system rather than disconnected features.</p></div>
+      <div class="process-step"><div class="process-num">04 / DEPLOY</div><h3>Put it into the real world.</h3><strong>Test, launch, measure, improve.</strong><p>We validate the workflow, deploy it into the operating environment and improve the product based on actual usage and business outcomes.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="technology">
+  <div class="container tech-shell">
+    <div class="tech-copy reveal">
+      <div class="kicker">Technology & integrations</div>
+      <h2>Built with the right technology for the problem.</h2>
+      <p>We use modern product and automation tooling as building blocks, not as the strategy. The stack is chosen around the workflow, integration requirements, speed of deployment and long-term maintainability.</p>
+    </div>
+    <div class="tech-grid reveal">
+      <div class="tech">OpenAI <small>AI</small></div>
+      <div class="tech">Claude <small>AI</small></div>
+      <div class="tech">Gemini <small>AI</small></div>
+      <div class="tech">JavaScript <small>Web</small></div>
+      <div class="tech">Python <small>Automation</small></div>
+      <div class="tech">React / Next.js <small>Product</small></div>
+      <div class="tech">Supabase <small>Data</small></div>
+      <div class="tech">PostgreSQL <small>Data</small></div>
+      <div class="tech">APIs / Webhooks <small>Integration</small></div>
+      <div class="tech">n8n <small>Workflow</small></div>
+      <div class="tech">Make / Zapier <small>Workflow</small></div>
+      <div class="tech">Google APIs <small>Integration</small></div>
+      <div class="tech-foot">Technology choices vary by project. We design around the actual system requirement rather than forcing every client into the same stack.</div>
+    </div>
+  </div>
+</section>
 
 <div class="container" id="contact">
-  <div class="cta-band">
+  <div class="cta reveal">
     <div>
-      <h2>Already have the audience?</h2>
-      <p>We can help turn the knowledge you already share into a product your audience can buy, use and come back to.</p>
+      <h2>Have a process that should be automated, an idea that should be a product, or a system that doesn't exist yet?</h2>
+      <p>Tell us what you're trying to build. We can help turn the problem into a product architecture, workflow and working system.</p>
     </div>
-    <a class="btn" href="mailto:">Start a conversation</a>
+    <a class="btn" href="mailto:">Start a conversation <span>↗</span></a>
   </div>
 </div>
 
 <footer>
-  <div class="container">
-    <div><strong style="color:#fff">Miltu Studios</strong><br>Digital product strategy & development for education creators.</div>
-    <div>Selected work shown as portfolio examples and product concepts.</div>
+  <div class="container footer-inner">
+    <div><strong>Miltu Studios</strong><br>Digital products, AI systems & automation.</div>
+    <div>Product thinking · Intelligent systems · Real execution.</div>
   </div>
 </footer>
+
+<script>
+(function(){
+  var items=document.querySelectorAll('.reveal');
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target)}})
+    },{threshold:.08});
+    items.forEach(function(el){io.observe(el)});
+  }else{items.forEach(function(el){el.classList.add('visible')})}
+
+  var run=document.getElementById('homeDemoRun');
+  var steps=[].slice.call(document.querySelectorAll('[data-home-step]'));
+  var empty=document.getElementById('homeDemoEmpty');
+  var result=document.getElementById('homeDemoResult');
+  var busy=false;
+  function reset(){
+    steps.forEach(function(s,i){s.className='demo-step';s.querySelector('i').textContent=i+1});
+    empty.style.display='grid';result.classList.remove('show');run.textContent='Run AI workflow';run.disabled=false;busy=false;
+  }
+  run.addEventListener('click',function(){
+    if(busy){return}
+    if(result.classList.contains('show')){reset();return}
+    busy=true;run.disabled=true;run.textContent='Analysing…';var i=0;
+    function next(){
+      if(i>0){steps[i-1].classList.remove('running');steps[i-1].classList.add('done');steps[i-1].querySelector('i').textContent='✓'}
+      if(i===steps.length){
+        empty.style.display='none';result.classList.add('show');run.disabled=false;run.textContent='Run again';busy=false;return
+      }
+      steps[i].classList.add('running');steps[i].querySelector('i').textContent='•';i++;setTimeout(next,420)
+    }
+    next()
+  });
+})();
+</script>
 </body>
 </html>
